@@ -11,6 +11,12 @@ var varEnumClass = require('./EnumClass.js');
 var EncryptDecryptPasswordClass = require('./EncryptDecryptPassword');
 var GenericAddUserClass = require('./GenericAddUsersClass');
 
+exports.testService = function(req,res) {
+    res.set('Content-Type', 'application/json');
+    res.status(200);
+    res.json({result:"Welcome To Video Screening."});
+}
+
 exports.createLogin = function(req,res) {
     var createLoginClass = new CreateLoginClass(req,res);
     createLoginClass.createLoginMethod();
