@@ -39,10 +39,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="db.js" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="db.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/routes/db.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="75" column="39" selection-start="1955" selection-end="1955" vertical-scroll-proportion="0.07608695">
+            <state line="75" column="39" selection-start="1955" selection-end="1955" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -57,10 +57,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Configuration.js" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="Configuration.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/routes/Configuration.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="14" column="34" selection-start="377" selection-end="385" vertical-scroll-proportion="0.0">
+            <state line="8" column="47" selection-start="210" selection-end="210" vertical-scroll-proportion="0.30706522">
               <folding />
             </state>
           </provider>
@@ -136,13 +136,13 @@
         <option value="$PROJECT_DIR$/routes/GenericAddUsersClass.js" />
         <option value="$PROJECT_DIR$/routes/index.js" />
         <option value="$PROJECT_DIR$/routes/InterviewQuestionService.js" />
-        <option value="$PROJECT_DIR$/routes/Configuration.js" />
         <option value="$PROJECT_DIR$/routes/MailerClass.js" />
         <option value="$PROJECT_DIR$/routes/ResetPasswordClass.js" />
         <option value="$PROJECT_DIR$/routes/UserProfileResetPasswordClass.js" />
         <option value="$PROJECT_DIR$/routes/LoginService.js" />
         <option value="$PROJECT_DIR$/app.js" />
         <option value="$PROJECT_DIR$/routes/db.js" />
+        <option value="$PROJECT_DIR$/routes/Configuration.js" />
       </list>
     </option>
   </component>
@@ -477,13 +477,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/routes/Configuration.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="34" selection-start="377" selection-end="385" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/routes/LoginService.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="17" column="18" selection-start="567" selection-end="567" vertical-scroll-proportion="0.0">
@@ -500,7 +493,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/routes/db.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="75" column="39" selection-start="1955" selection-end="1955" vertical-scroll-proportion="0.07608695">
+        <state line="75" column="39" selection-start="1955" selection-end="1955" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/Configuration.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="8" column="47" selection-start="210" selection-end="210" vertical-scroll-proportion="0.30706522">
           <folding />
         </state>
       </provider>

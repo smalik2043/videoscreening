@@ -6,7 +6,7 @@
  * To change this template use File | Settings | File Templates.
  */
 
-var dbAddress = 'mongodb://localhost/videoScreeningDB';
+var dbAddress = 'mongodb://178.62.121.119:27017/videoScreeningDB';
 var URLAddress = 'http://localhost:3000/';
 var email = "s.m@loxvo.com";
 var password = "temp123456";
