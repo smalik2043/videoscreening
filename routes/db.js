@@ -81,4 +81,10 @@ videoScreeningDB.model('videoScreeningCompanyUser',video_screening_company_user_
 videoScreeningDB.model('videoScreeningInterview',video_screening_interview);
 videoScreeningDB.model('videoScreeningQuestion',video_screening_question);
 videoScreeningDB.model('videoScreeningCandidates',video_screening_candidates);
-videoScreeningDB.connect(configFile.dbAddress);
+videoScreeningDB.connect(configFile.dbAddress, function (err, db) {
+    if (err) {
+        throw err;
+    } else {
+        console.log("successfully connected to the database");
+    }
+});
