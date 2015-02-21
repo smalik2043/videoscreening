@@ -90,24 +90,24 @@ function createLoginCallbackFunction(req,res){
     res.set('Content-Type', 'application/json');
     var firstName = req.param('firstName');
     var lastName = req.param('lastName');
-    var userName = req.param('userName');
     var password = req.param('password');
+    var email = req.param('email');
     var encryptPassword = new EncryptDecryptPasswordClass(req.param("password"));
     var hashPassword = encryptPassword.encryptPasswordFunction();
     var role = req.param('role');
-    var phoneNumber = req.param('phoneNumber');
-    var email = req.param('email');
+    var phoneNumber = typeof(req.param('phoneNumber')) == "undefined" ? "" : req.param('phoneNumber');
     var company = req.param('company');
-    var createdBy = req.param('createdBy');
+    console.log("createdBy: " + req.param('createdBy'));
+    var createdBy = typeof(req.param('createdBy')) == "undefined" ? "" : req.param('createdBy');
 
-    if(firstName == undefined || lastName == undefined || userName == undefined || password == undefined || role == undefined ||
-        phoneNumber == undefined || email == undefined) {
+    if(typeof(firstName) == "undefined" || typeof(lastName) == "undefined" ||  typeof(email) == "undefined"
+        || typeof(password) == "undefined" || typeof(phoneNumber) == "undefined") {
         res.status(400);
         res.json({result:"Mandatory parameter required"});
     } else {
         if(role == varEnumClass.role["Admin"]){
             var json;
-            var genericAddUserClass = new GenericAddUserClass(firstName,lastName,userName,password,role,phoneNumber,email,company,createdBy,req,res);
+            var genericAddUserClass = new GenericAddUserClass(firstName,lastName,email,password,role,phoneNumber,company,createdBy,req,res);
             genericAddUserClass.genericAddFunction(GenericAddUserClass.createGenericCallbackFunction);
             /*genericAddUserClass.genericAddFunction(GenericAddUserClass.createGenericCallbackFunction,function(result){
                 console.log("Returned JSON: " + json);
@@ -117,7 +117,7 @@ function createLoginCallbackFunction(req,res){
         } else if(role == varEnumClass.role["Manager"]) {
             /*res.json({id:createUserLogin._id,firstName:createUserLogin.firstName,lastName:createUserLogin.lastName,
             email:createUserLogin.email});*/
-            var genericAddUserClass = new GenericAddUserClass(firstName,lastName,userName,password,role,phoneNumber,email,company,createdBy,req,res);
+            var genericAddUserClass = new GenericAddUserClass(firstName,lastName,email,password,role,phoneNumber,company,createdBy,req,res);
             genericAddUserClass.getCompany(createdBy,function(companyName){
                 console.log("company name returned: " + companyName);
                 //genericAddUserClass.companyName = companyName;
@@ -127,7 +127,7 @@ function createLoginCallbackFunction(req,res){
         } else if(role == varEnumClass.role["User"]) {
             /*res.json({id:createUserLogin._id,firstName:createUserLogin.firstName,lastName:createUserLogin.lastName,
                 email:createUserLogin.email});*/
-            var genericAddUserClass = new GenericAddUserClass(firstName,lastName,userName,password,role,phoneNumber,email,company,createdBy,req,res);
+            var genericAddUserClass = new GenericAddUserClass(firstName,lastName,email,password,role,phoneNumber,company,createdBy,req,res);
             genericAddUserClass.getCompany(createdBy,function(companyName){
                 console.log("company name returned: " + companyName);
                 //genericAddUserClass.companyName = companyName;
@@ -154,9 +154,14 @@ function loginCallbackFunction(req,res){
     res.set('Content-Type', 'application/json');
     var userName = req.param('userName');
     var password = req.param('password');
+    var userId;
+    var firstName;
+    var lastName;
+    var email;
     var role;
+    var companyId;
 
-    mongooseDBObjects.var_video_screening_createLogin.find({userName: userName},function(err, getUser){
+    mongooseDBObjects.var_video_screening_createLogin.find({email: userName},function(err, getUser){
         if(err) return console.error(err);
         if(getUser.length == "") {
             res.status(404);
@@ -176,8 +181,19 @@ function loginCallbackFunction(req,res){
                     } else if(getUserLoop.role == varEnumClass.role["User"]) {
                         role = "User";
                     }
-                    res.json({id:getUserLoop._id,userName : getUserLoop.userName , firstName : getUserLoop.firstName ,
-                        lastName: getUserLoop.lastName , email : getUserLoop.email, role : role});
+                    /*res.json({id:getUserLoop._id, email : getUserLoop.email, firstName : getUserLoop.firstName ,
+                        lastName: getUserLoop.lastName, role : role});*/
+                    userId = getUserLoop._id;
+                    email = getUserLoop.email;
+                    firstName = getUserLoop.firstName;
+                    lastName = getUserLoop.email;
+                }
+            });
+
+            mongooseDBObjects.var_video_screening_company_user.findOne({userId : userId},function(err,companyUser,count){
+                if(companyUser != "" && companyUser !=null){
+                    res.json({id:userId, email : email, firstName : firstName ,
+                        lastName: lastName, role : role,companyId:companyUser.companyId});
                 }
             });
         }
@@ -199,7 +215,7 @@ function editManagerCallbackFunction(req,res){
     res.set('Content-Type', 'application/json');
     var firstName = req.param('firstName');
     var lastName = req.param('lastName');
-    var userName = req.param('userName');
+    var email = req.param('email');
     var password = req.param('password');
     var confirmPassword = req.param('confirmPassword');
     var encryptPassword = new EncryptDecryptPasswordClass(req.param("password"));
@@ -207,18 +223,17 @@ function editManagerCallbackFunction(req,res){
     var role = req.param('role');
     var status = req.param('status');
     var phoneNumber = req.param('phoneNumber');
-    var email = req.param('email');
 
     if(password != confirmPassword){
         res.status(400);
         res.json({result: "password and confirm password does not match"});
     } else {
-        mongooseDBObjects.var_video_screening_createLogin.find({userName : userName},function(err,findUser,count){
+        mongooseDBObjects.var_video_screening_createLogin.find({email : email},function(err,findUser,count){
             if(findUser != ""){
                 findUser.forEach(function(findUserLoop){
-                    mongooseDBObjects.var_video_screening_createLogin.update({userName:userName},{$set:{
+                    mongooseDBObjects.var_video_screening_createLogin.update({email : email},{$set:{
                         firstName:firstName,lastName:lastName,password:hashPassword,role:parseInt(role),status:status,
-                        phoneNumber:phoneNumber,email:email
+                        phoneNumber:phoneNumber
                     }},function(err,findUserLoopUpdate,count){
                         if(err) return console.error(err);
                         if(role == "2") {
@@ -250,18 +265,18 @@ function deleteManagerCallbackFunction(req,res){
     var userName = req.param('userName');
     var deletedBy = req.param('deletedBy');
 
-    mongooseDBObjects.var_video_screening_createLogin.find({userName:userName},function(err,user,count){
+    mongooseDBObjects.var_video_screening_createLogin.find({email:userName},function(err,user,count){
        if(err) return console.error(err);
        user.forEach(function(userLoop){
          if(userLoop != ""){
             if(userLoop.role == varEnumClass.role["Admin"]){
                 res.json({result:"admin cannot be deleted"});
             } else if(userLoop.role == varEnumClass.role["Manager"]){
-                mongooseDBObjects.var_video_screening_createLogin.find({userName:deletedBy},function(err,deletedByUser,count){
+                mongooseDBObjects.var_video_screening_createLogin.find({email:deletedBy},function(err,deletedByUser,count){
                   if(deletedByUser != ""){
                       deletedByUser.forEach(function(deletedByUserLoop){
                           if(deletedByUserLoop.role == varEnumClass.role["Admin"]){
-                              mongooseDBObjects.var_video_screening_createLogin.update({userName:userName},{$set:{status:varEnumClass.status["Deleted"]}},function(err,updateUser,count){
+                              mongooseDBObjects.var_video_screening_createLogin.update({email:userName},{$set:{status:varEnumClass.status["Deleted"]}},function(err,updateUser,count){
                                   if(err) return console.error(err);
                                   res.json({result:"Manager has been deleted"});
                               })
@@ -272,11 +287,11 @@ function deleteManagerCallbackFunction(req,res){
                   }
                 });
             } else if(userLoop.role == varEnumClass.role["User"]){
-                mongooseDBObjects.var_video_screening_createLogin.find({userName:deletedBy},function(err,deletedByUser,count){
+                mongooseDBObjects.var_video_screening_createLogin.find({email:deletedBy},function(err,deletedByUser,count){
                     if(deletedByUser != ""){
                         deletedByUser.forEach(function(deletedByUserLoop){
                             if(deletedByUserLoop.role == varEnumClass["Admin"] || deletedByUserLoop.role == varEnumClass["Manager"]){
-                                mongooseDBObjects.var_video_screening_createLogin.update({userName:userName},{$set:{status:varEnumClass.status["Deleted"]}},function(err,updateUser,count){
+                                mongooseDBObjects.var_video_screening_createLogin.update({email:userName},{$set:{status:varEnumClass.status["Deleted"]}},function(err,updateUser,count){
                                     if(err) return console.error(err);
                                     res.json({result:"User has been deleted"});
                                 })

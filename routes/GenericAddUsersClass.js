@@ -8,15 +8,15 @@
 var mongooseDBObjects = require('./MongooseDBObjects.js');
 var varEnumClass = require('./EnumClass.js');
 var EncryptDecryptPasswordClass = require('./EncryptDecryptPassword');
-var GenericAddUserClass = function(firstName, lastName, userName, password, role, phoneNumber, email, company, createdBy, req, res){
+var GenericAddUserClass = function(firstName, lastName, email, password, role, phoneNumber, company, createdBy, req, res){
     this.firstName = firstName;
     this.lastName = lastName;
-    this.userName = userName;
+    this.email = email;
     var encryptPassword = new EncryptDecryptPasswordClass(password);
     this.password = encryptPassword.encryptPasswordFunction();
     this.role = role;
     this.phoneNumber = phoneNumber;
-    this.email = email;
+    this.companyName = typeof(company) == "undefined" ? "" : company;
     this.createdBy = createdBy;
     this.req = req;
     this.res = res;
@@ -32,14 +32,15 @@ var GenericAddUserClass = function(firstName, lastName, userName, password, role
 GenericAddUserClass.prototype.genericAddFunction = function (createGenericCallback,company){
 
     console.log("company name in callback : " + company);
-    createGenericCallback(this.firstName,this.lastName,this.userName,this.password,this.role,this.phoneNumber,this.email, company, this.createdBy, this.req, this.res);
+    company = typeof(company) == "undefined" ? this.companyName : company;
+    createGenericCallback(this.firstName,this.lastName,this.email,this.password,this.role,this.phoneNumber, company, this.createdBy, this.req, this.res);
         /*createGenericCallback(this.firstName,this.lastName,this.userName,this.password,this.role,this.phoneNumber,this.email,this.companyName,function(result){
            fn(result);
            console.log("Well it should work: " + result);
         });*/
 }
 
-function createGenericCallbackFunction(firstName, lastName, userName, password, role, phoneNumber, email, company, createdBy, req, res){
+function createGenericCallbackFunction(firstName, lastName, email, password, role, phoneNumber, company, createdBy, req, res){
     var userId;
     var companyExist = false;
     var companyResultLoopId;
@@ -50,7 +51,7 @@ function createGenericCallbackFunction(firstName, lastName, userName, password, 
     var jsonArray = [];
     console.log("created by in callback: " + createdBy);
 
-    mongooseDBObjects.var_video_screening_createLogin.find({userName : userName},function(err,user){
+    mongooseDBObjects.var_video_screening_createLogin.find({email : email},function(err,user){
         if(user != ""){
             user.forEach(function(userLoop){
                 userId = userLoop._id;
@@ -82,7 +83,31 @@ function createGenericCallbackFunction(firstName, lastName, userName, password, 
                                 }).save(function (err, companyUserResult, count) {
                                         if (err) throw err;
                                         res.status(200);
-                                        res.json({result:"company admin saved"});
+                                        if(role == varEnumClass.role["Admin"]) {
+                                            res.json({result:"admin created",
+                                                "firstName":firstName,
+                                                "lastName":lastName,
+                                                "email": email,
+                                                "adminId" : userId,
+                                                "companyId":company,
+                                                "companyName":getCompanyName});
+                                        } else if(role == varEnumClass.role["Manager"]) {
+                                            res.json({result:"manager created",
+                                                "firstName":firstName,
+                                                "lastName":lastName,
+                                                "email": email,
+                                                "managerId" : userId,
+                                                "companyId":company,
+                                                "companyName":getCompanyName});
+                                        } else if(role == varEnumClass.role["User"]) {
+                                            res.json({result:"user created",
+                                                "firstName":firstName,
+                                                "lastName":lastName,
+                                                "email": email,
+                                                "userId" : userId,
+                                                "companyId":company,
+                                                "companyName":getCompanyName});
+                                        }
                                     })
                             } else {
                                 companyUser.forEach(function(companyUSerLoop){
@@ -109,7 +134,31 @@ function createGenericCallbackFunction(firstName, lastName, userName, password, 
                                                 if (err) throw err;
                                                 res.status(200);
                                                 res.json({result:"company admin saved"});
-                                                console.log("company admin saved");
+                                                if(role == varEnumClass.role["Admin"]) {
+                                                    res.json({result:"admin created",
+                                                        "firstName":firstName,
+                                                        "lastName":lastName,
+                                                        "email": email,
+                                                        "adminId" : userId,
+                                                        "companyId":company,
+                                                        "companyName":getCompanyName});
+                                                } else if(role == varEnumClass.role["Manager"]) {
+                                                    res.json({result:"manager created",
+                                                        "firstName":firstName,
+                                                        "lastName":lastName,
+                                                        "email": email,
+                                                        "managerId" : userId,
+                                                        "companyId":company,
+                                                        "companyName":getCompanyName});
+                                                } else if(role == varEnumClass.role["User"]) {
+                                                    res.json({result:"user created",
+                                                        "firstName":firstName,
+                                                        "lastName":lastName,
+                                                        "email": email,
+                                                        "userId" : userId,
+                                                        "companyId":company,
+                                                        "companyName":getCompanyName});
+                                                }
                                             })
                                     }
                                 });
@@ -136,7 +185,31 @@ function createGenericCallbackFunction(firstName, lastName, userName, password, 
                                 }).save(function (err, companyUserResult, count) {
                                         if (err) throw err;
                                         res.status(200);
-                                        res.json({result:"company admin saved."});
+                                        if(role == varEnumClass.role["Admin"]) {
+                                            res.json({result:"admin created",
+                                                "firstName":firstName,
+                                                "lastName":lastName,
+                                                "email": email,
+                                                "adminId" : userId,
+                                                "companyId":companyId,
+                                                "companyName":company});
+                                        } else if(role == varEnumClass.role["Manager"]) {
+                                            res.json({result:"manager created",
+                                                "firstName":firstName,
+                                                "lastName":lastName,
+                                                "email": email,
+                                                "managerId" : userId,
+                                                "companyId":companyId,
+                                                "companyName":company});
+                                        } else if(role == varEnumClass.role["User"]) {
+                                            res.json({result:"user created",
+                                                "firstName":firstName,
+                                                "lastName":lastName,
+                                                "email": email,
+                                                "userId" : userId,
+                                                "companyId":companyId,
+                                                "companyName":company});
+                                        }
                                     })
                             })
                     }
@@ -146,7 +219,6 @@ function createGenericCallbackFunction(firstName, lastName, userName, password, 
             new mongooseDBObjects.var_video_screening_createLogin({
                 firstName : firstName,
                 lastName : lastName,
-                userName : userName,
                 password :  password,
                 role : parseInt(role),
                 status : varEnumClass.status["Active"],
@@ -160,7 +232,7 @@ function createGenericCallbackFunction(firstName, lastName, userName, password, 
                     //res.json({result:"Admin has been created successfully."});
                     userId = createUserLogin._id;
                     mongooseDBObjects.var_video_screening_company.findOne({companyName:company},function(err,companyUser,count){
-                        if(companyUser != "") {
+                        if(companyUser != null && companyUser != "") {
                             //console.log(companyUser.companyName.toLowerCase() + " " + companyUser.toLowerCase());
                             //console.log("a " + new RegExp("^" + companyUser.companyName.toLowerCase(), "i") + " " + new RegExp("^" + companyUser.toLowerCase(), "i"));
                             if(companyUser.companyName.toLowerCase() == company.toLowerCase()) {
@@ -186,7 +258,31 @@ function createGenericCallbackFunction(firstName, lastName, userName, password, 
                             }).save(function(err,createCompanyUser,count){
                                     if(err) throw err;
                                     res.status(200);
-                                    res.json({result : "admin and company saved"});
+                                    if(role == varEnumClass.role["Admin"]) {
+                                        res.json({result:"admin created",
+                                            "firstName":firstName,
+                                            "lastName":lastName,
+                                            "email": email,
+                                            "adminId" : userId,
+                                            "companyId":company,
+                                            "companyName":getCompanyName});
+                                    } else if(role == varEnumClass.role["Manager"]) {
+                                        res.json({result:"manager created",
+                                            "firstName":firstName,
+                                            "lastName":lastName,
+                                            "email": email,
+                                            "managerId" : userId,
+                                            "companyId":company,
+                                            "companyName":getCompanyName});
+                                    } else if(role == varEnumClass.role["User"]) {
+                                        res.json({result:"user created",
+                                            "firstName":firstName,
+                                            "lastName":lastName,
+                                            "email": email,
+                                            "userId" : userId,
+                                            "companyId":company,
+                                            "companyName":getCompanyName});
+                                    }
                                 });
                         } else {
                             companyExist = false;
@@ -207,7 +303,32 @@ function createGenericCallbackFunction(firstName, lastName, userName, password, 
                                     }).save(function (err, companyUserResult, count) {
                                             if (err) throw err;
                                             res.status(200);
-                                            res.json({result:"admin and company saved."});
+                                            if(role == varEnumClass.role["Admin"]) {
+                                                res.json({result:"admin created",
+                                                            "firstName":firstName,
+                                                            "lastName":lastName,
+                                                            "email": email,
+                                                            "adminId" : userId,
+                                                            "companyId":companyId,
+                                                            "companyName":company});
+                                            } else if(role == varEnumClass.role["Manager"]) {
+                                                res.json({result:"manager created",
+                                                            "firstName":firstName,
+                                                            "lastName":lastName,
+                                                            "email": email,
+                                                            "managerId" : userId,
+                                                            "companyId":companyId,
+                                                            "companyName":company});
+                                            } else if(role == varEnumClass.role["User"]) {
+                                                res.json({result:"user created",
+                                                            "firstName":firstName,
+                                                            "lastName":lastName,
+                                                            "email": email,
+                                                            "userId" : userId,
+                                                            "companyId":companyId,
+                                                            "companyName":company});
+                                            }
+
                                         })
                                 })
                         }
@@ -219,6 +340,7 @@ function createGenericCallbackFunction(firstName, lastName, userName, password, 
     });
 }
 
+//returning a company value from callback function
 GenericAddUserClass.prototype.getCompany = function (createdBy,callback){
     var userCompanyId;
     var company;

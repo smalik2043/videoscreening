@@ -15,12 +15,11 @@ console.log("sulaiman");
 var video_screening_createLogin = new videoScreeningSchema({
     firstName : String,
     lastName : String,
-    userName : String,
+    email : String,  //email is the username.
     password : String,
     role : Number,
     status : String,
     phoneNumber : String,
-    email : String,
     createdBy : String,
     uuid : String,
     lastUpdatedTimeStamp : Date,
