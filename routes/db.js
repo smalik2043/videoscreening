@@ -15,6 +15,7 @@ console.log("sulaiman");
 var video_screening_createLogin = new videoScreeningSchema({
     firstName : String,
     lastName : String,
+    userName : String,
     email : String,  //email is the username.
     password : String,
     role : Number,
@@ -52,7 +53,8 @@ var video_screening_company_user_bridge_table = new videoScreeningSchema({
 
 var video_screening_interview = new videoScreeningSchema({
     interviewName : String,
-    createdBy : String,
+    createdBy : String,        // created by is the managerId.
+    status : Number,
     lastUpdatedTimeStamp : Date,
     lastUpdatedBy : String
 });
@@ -61,7 +63,7 @@ var video_screening_question = new videoScreeningSchema({
     interviewId : String,
     question : String,
     status : Number,
-    createdBy : String,
+    createdBy : String,       // created by is the managerId.
     lastUpdatedTimeStamp : Date,
     lastUpdatedBy : String
 });
@@ -69,7 +71,9 @@ var video_screening_question = new videoScreeningSchema({
 var video_screening_candidates = new videoScreeningSchema({
     interviewId : String,
     userId : String,
-    createdBy : String,
+    createdBy : String,       // created by is the managerId.
+    status : Number,
+    isCompleted : Number,
     lastUpdatedTimeStamp : Date,
     lastUpdatedBy : String
 });

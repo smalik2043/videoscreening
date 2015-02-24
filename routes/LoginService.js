@@ -90,6 +90,7 @@ function createLoginCallbackFunction(req,res){
     res.set('Content-Type', 'application/json');
     var firstName = req.param('firstName');
     var lastName = req.param('lastName');
+    var userName = req.param('userName');
     var password = req.param('password');
     var email = req.param('email');
     var encryptPassword = new EncryptDecryptPasswordClass(req.param("password"));
@@ -107,7 +108,7 @@ function createLoginCallbackFunction(req,res){
     } else {
         if(role == varEnumClass.role["Admin"]){
             var json;
-            var genericAddUserClass = new GenericAddUserClass(firstName,lastName,email,password,role,phoneNumber,company,createdBy,req,res);
+            var genericAddUserClass = new GenericAddUserClass(firstName,lastName,userName,email,password,role,phoneNumber,company,createdBy,req,res);
             genericAddUserClass.genericAddFunction(GenericAddUserClass.createGenericCallbackFunction);
             /*genericAddUserClass.genericAddFunction(GenericAddUserClass.createGenericCallbackFunction,function(result){
                 console.log("Returned JSON: " + json);
@@ -117,21 +118,29 @@ function createLoginCallbackFunction(req,res){
         } else if(role == varEnumClass.role["Manager"]) {
             /*res.json({id:createUserLogin._id,firstName:createUserLogin.firstName,lastName:createUserLogin.lastName,
             email:createUserLogin.email});*/
-            var genericAddUserClass = new GenericAddUserClass(firstName,lastName,email,password,role,phoneNumber,company,createdBy,req,res);
+            var genericAddUserClass = new GenericAddUserClass(firstName,lastName,userName,email,password,role,phoneNumber,company,createdBy,req,res);
             genericAddUserClass.getCompany(createdBy,function(companyName){
-                console.log("company name returned: " + companyName);
-                //genericAddUserClass.companyName = companyName;
-                genericAddUserClass.genericAddFunction(GenericAddUserClass.createGenericCallbackFunction,companyName);
+                if(companyName == false){
+                    res.json({result:"Created by id not found."});
+                } else {
+                    console.log("company name returned: " + companyName);
+                    //genericAddUserClass.companyName = companyName;
+                    genericAddUserClass.genericAddFunction(GenericAddUserClass.createGenericCallbackFunction,companyName);
+                }
             });
 
         } else if(role == varEnumClass.role["User"]) {
             /*res.json({id:createUserLogin._id,firstName:createUserLogin.firstName,lastName:createUserLogin.lastName,
                 email:createUserLogin.email});*/
-            var genericAddUserClass = new GenericAddUserClass(firstName,lastName,email,password,role,phoneNumber,company,createdBy,req,res);
+            var genericAddUserClass = new GenericAddUserClass(firstName,lastName,userName,email,password,role,phoneNumber,company,createdBy,req,res);
             genericAddUserClass.getCompany(createdBy,function(companyName){
-                console.log("company name returned: " + companyName);
-                //genericAddUserClass.companyName = companyName;
-                genericAddUserClass.genericAddFunction(GenericAddUserClass.createGenericCallbackFunction,companyName);
+                if(companyName == false){
+                    res.json({result:"Created by id not found."});
+                } else {
+                    console.log("company name returned: " + companyName);
+                    //genericAddUserClass.companyName = companyName;
+                    genericAddUserClass.genericAddFunction(GenericAddUserClass.createGenericCallbackFunction,companyName);
+                }
             });
         } else {
             res.status(400);
@@ -159,9 +168,10 @@ function loginCallbackFunction(req,res){
     var lastName;
     var email;
     var role;
+    var createdBy;
     var companyId;
 
-    mongooseDBObjects.var_video_screening_createLogin.find({email: userName},function(err, getUser){
+    mongooseDBObjects.var_video_screening_createLogin.find({userName: userName},function(err, getUser){
         if(err) return console.error(err);
         if(getUser.length == "") {
             res.status(404);
@@ -186,14 +196,16 @@ function loginCallbackFunction(req,res){
                     userId = getUserLoop._id;
                     email = getUserLoop.email;
                     firstName = getUserLoop.firstName;
-                    lastName = getUserLoop.email;
+                    lastName = getUserLoop.lastName;
+                    createdBy = getUserLoop.createdBy;
                 }
             });
 
             mongooseDBObjects.var_video_screening_company_user.findOne({userId : userId},function(err,companyUser,count){
                 if(companyUser != "" && companyUser !=null){
-                    res.json({id:userId, email : email, firstName : firstName ,
-                        lastName: lastName, role : role,companyId:companyUser.companyId});
+                    res.status(200);
+                    res.json({id:userId, userName : userName, email:email, firstName : firstName ,
+                        lastName: lastName, role : role,companyId:companyUser.companyId,createdBy:createdBy});
                 }
             });
         }
@@ -215,6 +227,7 @@ function editManagerCallbackFunction(req,res){
     res.set('Content-Type', 'application/json');
     var firstName = req.param('firstName');
     var lastName = req.param('lastName');
+    var userName = req.param('userName');
     var email = req.param('email');
     var password = req.param('password');
     var confirmPassword = req.param('confirmPassword');
@@ -228,12 +241,12 @@ function editManagerCallbackFunction(req,res){
         res.status(400);
         res.json({result: "password and confirm password does not match"});
     } else {
-        mongooseDBObjects.var_video_screening_createLogin.find({email : email},function(err,findUser,count){
+        mongooseDBObjects.var_video_screening_createLogin.find({userName : userName},function(err,findUser,count){
             if(findUser != ""){
                 findUser.forEach(function(findUserLoop){
-                    mongooseDBObjects.var_video_screening_createLogin.update({email : email},{$set:{
+                    mongooseDBObjects.var_video_screening_createLogin.update({userName : userName},{$set:{
                         firstName:firstName,lastName:lastName,password:hashPassword,role:parseInt(role),status:status,
-                        phoneNumber:phoneNumber
+                        phoneNumber:phoneNumber,email:email
                     }},function(err,findUserLoopUpdate,count){
                         if(err) return console.error(err);
                         if(role == "2") {
@@ -265,18 +278,18 @@ function deleteManagerCallbackFunction(req,res){
     var userName = req.param('userName');
     var deletedBy = req.param('deletedBy');
 
-    mongooseDBObjects.var_video_screening_createLogin.find({email:userName},function(err,user,count){
+    mongooseDBObjects.var_video_screening_createLogin.find({userName:userName},function(err,user,count){
        if(err) return console.error(err);
        user.forEach(function(userLoop){
          if(userLoop != ""){
             if(userLoop.role == varEnumClass.role["Admin"]){
                 res.json({result:"admin cannot be deleted"});
             } else if(userLoop.role == varEnumClass.role["Manager"]){
-                mongooseDBObjects.var_video_screening_createLogin.find({email:deletedBy},function(err,deletedByUser,count){
+                mongooseDBObjects.var_video_screening_createLogin.find({userName:deletedBy},function(err,deletedByUser,count){
                   if(deletedByUser != ""){
                       deletedByUser.forEach(function(deletedByUserLoop){
                           if(deletedByUserLoop.role == varEnumClass.role["Admin"]){
-                              mongooseDBObjects.var_video_screening_createLogin.update({email:userName},{$set:{status:varEnumClass.status["Deleted"]}},function(err,updateUser,count){
+                              mongooseDBObjects.var_video_screening_createLogin.update({userName:userName},{$set:{status:varEnumClass.status["Deleted"]}},function(err,updateUser,count){
                                   if(err) return console.error(err);
                                   res.json({result:"Manager has been deleted"});
                               })
@@ -287,11 +300,11 @@ function deleteManagerCallbackFunction(req,res){
                   }
                 });
             } else if(userLoop.role == varEnumClass.role["User"]){
-                mongooseDBObjects.var_video_screening_createLogin.find({email:deletedBy},function(err,deletedByUser,count){
+                mongooseDBObjects.var_video_screening_createLogin.find({userName:deletedBy},function(err,deletedByUser,count){
                     if(deletedByUser != ""){
                         deletedByUser.forEach(function(deletedByUserLoop){
                             if(deletedByUserLoop.role == varEnumClass["Admin"] || deletedByUserLoop.role == varEnumClass["Manager"]){
-                                mongooseDBObjects.var_video_screening_createLogin.update({email:userName},{$set:{status:varEnumClass.status["Deleted"]}},function(err,updateUser,count){
+                                mongooseDBObjects.var_video_screening_createLogin.update({userName:userName},{$set:{status:varEnumClass.status["Deleted"]}},function(err,updateUser,count){
                                     if(err) return console.error(err);
                                     res.json({result:"User has been deleted"});
                                 })
@@ -314,32 +327,43 @@ ListManagersClass.prototype.listManagersFunction = function(req,res){
     var jsonManagerArray = [];
     var jsonUserIds = [];
     var jsonManagers = {};
-    var companyId = '54d10626b9d523a40f606b76';
+    var companyId = req.param('companyId');
     var companyName;
-    mongooseDBObjects.var_video_screening_company_user.find({companyId:companyId,role:2},function(err,companyUser,count){
-        if(err) throw err;
-        companyUser.forEach(function(companyUserLoop){
-            jsonUserIds.push(companyUserLoop.userId);
-        });
-        mongooseDBObjects.var_video_screening_company.findOne({_id:companyId},function(err,company,count){
+    if(companyId != null && companyId != "" && typeof(companyId) != "undefined"){
+        mongooseDBObjects.var_video_screening_company_user.find({companyId:companyId,role:2},function(err,companyUser,count){
             if(err) throw err;
-            companyName = company.companyName;
-
-            mongooseDBObjects.var_video_screening_createLogin.find({_id:{$in:jsonUserIds}},function(err,users,count){
-                if(err) throw err;
-                users.forEach(function(usersLoop){
-                    jsonManagers["id"] = usersLoop._id;
-                    jsonManagers["firstName"] = usersLoop.firstName;
-                    jsonManagers["lastName"] = usersLoop.lastName;
-                    jsonManagers["email"] =  usersLoop.email;
-                    jsonManagers["company"] = companyName;
-                    jsonManagerArray.push(jsonManagers);
-                    jsonManagers = {};
+            console.log("companyUser: " + companyUser);
+            if(companyUser != "" && companyUser != null){
+                companyUser.forEach(function(companyUserLoop){
+                    jsonUserIds.push(companyUserLoop.userId);
                 });
-                res.json(jsonManagerArray);
-            })
+                mongooseDBObjects.var_video_screening_company.findOne({_id:companyId},function(err,company,count){
+                    if(err) throw err;
+                    companyName = company.companyName;
+
+                    mongooseDBObjects.var_video_screening_createLogin.find({_id:{$in:jsonUserIds}},function(err,users,count){
+                        if(err) throw err;
+                        users.forEach(function(usersLoop){
+                            jsonManagers["id"] = usersLoop._id;
+                            jsonManagers["firstName"] = usersLoop.firstName;
+                            jsonManagers["lastName"] = usersLoop.lastName;
+                            jsonManagers["email"] =  usersLoop.email;
+                            jsonManagers["company"] = companyName;
+                            jsonManagerArray.push(jsonManagers);
+                            jsonManagers = {};
+                        });
+                        res.json(jsonManagerArray);
+                    });
+                });
+            } else {
+                res.status(404);
+                res.json({result:"No company found against the given id."});
+            }
         });
-    })
+    } else {
+        res.status(404);
+        res.json({result:"Please provide company Id."});
+    }
 }
 
 var ListUsersClass = function(){
@@ -349,30 +373,40 @@ ListUsersClass.prototype.listUsersFunction = function(req,res){
     var jsonUsersArray = [];
     var jsonUserIds = [];
     var jsonUsers = {};
-    var companyId = '54d10626b9d523a40f606b76';
+    var companyId = req.param('companyId');
     var companyName;
-    mongooseDBObjects.var_video_screening_company_user.find({companyId:companyId,role:3},function(err,companyUser,count){
-        if(err) throw err;
-        companyUser.forEach(function(companyUserLoop){
-            jsonUserIds.push(companyUserLoop.userId);
-        });
-        mongooseDBObjects.var_video_screening_company.findOne({_id:companyId},function(err,company,count){
+    if(companyId != null && companyId != "" && typeof(companyId) != "undefined"){
+        mongooseDBObjects.var_video_screening_company_user.find({companyId:companyId,role:3},function(err,companyUser,count){
             if(err) throw err;
-            companyName = company.companyName;
-
-            mongooseDBObjects.var_video_screening_createLogin.find({_id:{$in:jsonUserIds}},function(err,users,count){
-                if(err) throw err;
-                users.forEach(function(usersLoop){
-                    jsonUsers["id"] = usersLoop._id;
-                    jsonUsers["firstName"] = usersLoop.firstName;
-                    jsonUsers["lastName"] = usersLoop.lastName;
-                    jsonUsers["email"] =  usersLoop.email;
-                    jsonUsers["company"] = companyName;
-                    jsonUsersArray.push(jsonUsers);
-                    jsonUsers = {};
+            if(companyUser != "" && companyUser != null){
+                companyUser.forEach(function(companyUserLoop){
+                    jsonUserIds.push(companyUserLoop.userId);
                 });
-                res.json(jsonUsersArray);
-            })
+                mongooseDBObjects.var_video_screening_company.findOne({_id:companyId},function(err,company,count){
+                    if(err) throw err;
+                    companyName = company.companyName;
+
+                    mongooseDBObjects.var_video_screening_createLogin.find({_id:{$in:jsonUserIds}},function(err,users,count){
+                        if(err) throw err;
+                        users.forEach(function(usersLoop){
+                            jsonUsers["id"] = usersLoop._id;
+                            jsonUsers["firstName"] = usersLoop.firstName;
+                            jsonUsers["lastName"] = usersLoop.lastName;
+                            jsonUsers["email"] =  usersLoop.email;
+                            jsonUsers["company"] = companyName;
+                            jsonUsersArray.push(jsonUsers);
+                            jsonUsers = {};
+                        });
+                        res.json(jsonUsersArray);
+                    });
+                });
+            }  else {
+                res.status(404);
+                res.json({result:"No company found against the given id."});
+            }
         });
-    })
+    } else {
+        res.status(404);
+        res.json({result:"Please provide company Id."});
+    }
 }

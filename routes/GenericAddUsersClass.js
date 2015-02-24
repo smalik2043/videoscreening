@@ -8,9 +8,10 @@
 var mongooseDBObjects = require('./MongooseDBObjects.js');
 var varEnumClass = require('./EnumClass.js');
 var EncryptDecryptPasswordClass = require('./EncryptDecryptPassword');
-var GenericAddUserClass = function(firstName, lastName, email, password, role, phoneNumber, company, createdBy, req, res){
+var GenericAddUserClass = function(firstName, lastName, userName, email, password, role, phoneNumber, company, createdBy, req, res){
     this.firstName = firstName;
     this.lastName = lastName;
+    this.userName = userName;
     this.email = email;
     var encryptPassword = new EncryptDecryptPasswordClass(password);
     this.password = encryptPassword.encryptPasswordFunction();
@@ -33,14 +34,14 @@ GenericAddUserClass.prototype.genericAddFunction = function (createGenericCallba
 
     console.log("company name in callback : " + company);
     company = typeof(company) == "undefined" ? this.companyName : company;
-    createGenericCallback(this.firstName,this.lastName,this.email,this.password,this.role,this.phoneNumber, company, this.createdBy, this.req, this.res);
+    createGenericCallback(this.firstName,this.lastName,this.userName,this.email,this.password,this.role,this.phoneNumber, company, this.createdBy, this.req, this.res);
         /*createGenericCallback(this.firstName,this.lastName,this.userName,this.password,this.role,this.phoneNumber,this.email,this.companyName,function(result){
            fn(result);
            console.log("Well it should work: " + result);
         });*/
 }
 
-function createGenericCallbackFunction(firstName, lastName, email, password, role, phoneNumber, company, createdBy, req, res){
+function createGenericCallbackFunction(firstName, lastName, userName, email, password, role, phoneNumber, company, createdBy, req, res){
     var userId;
     var companyExist = false;
     var companyResultLoopId;
@@ -51,7 +52,7 @@ function createGenericCallbackFunction(firstName, lastName, email, password, rol
     var jsonArray = [];
     console.log("created by in callback: " + createdBy);
 
-    mongooseDBObjects.var_video_screening_createLogin.find({email : email},function(err,user){
+    mongooseDBObjects.var_video_screening_createLogin.find({email : userName},function(err,user){
         if(user != ""){
             user.forEach(function(userLoop){
                 userId = userLoop._id;
@@ -87,6 +88,7 @@ function createGenericCallbackFunction(firstName, lastName, email, password, rol
                                             res.json({result:"admin created",
                                                 "firstName":firstName,
                                                 "lastName":lastName,
+                                                "userName":userName,
                                                 "email": email,
                                                 "adminId" : userId,
                                                 "companyId":company,
@@ -95,6 +97,7 @@ function createGenericCallbackFunction(firstName, lastName, email, password, rol
                                             res.json({result:"manager created",
                                                 "firstName":firstName,
                                                 "lastName":lastName,
+                                                "userName":userName,
                                                 "email": email,
                                                 "managerId" : userId,
                                                 "companyId":company,
@@ -103,6 +106,7 @@ function createGenericCallbackFunction(firstName, lastName, email, password, rol
                                             res.json({result:"user created",
                                                 "firstName":firstName,
                                                 "lastName":lastName,
+                                                "userName":userName,
                                                 "email": email,
                                                 "userId" : userId,
                                                 "companyId":company,
@@ -112,12 +116,6 @@ function createGenericCallbackFunction(firstName, lastName, email, password, rol
                             } else {
                                 companyUser.forEach(function(companyUSerLoop){
                                     if(companyUSerLoop.role == role) {
-                                        /*jsonArray.push({status:"404"});
-                                        jsonArray.push({result:"User already registered with specified role and the company."});
-                                        var returnedObject = {};
-                                        returnedObject['status'] = 404;
-                                        returnedObject['msg'] = "User already registered with specified role and the company.";
-                                        return returnedObject;*/
                                         res.status(404);
                                         res.json({result:"User already registered with specified role and the company."});
                                     } else {
@@ -138,6 +136,7 @@ function createGenericCallbackFunction(firstName, lastName, email, password, rol
                                                     res.json({result:"admin created",
                                                         "firstName":firstName,
                                                         "lastName":lastName,
+                                                        "userName":userName,
                                                         "email": email,
                                                         "adminId" : userId,
                                                         "companyId":company,
@@ -146,6 +145,7 @@ function createGenericCallbackFunction(firstName, lastName, email, password, rol
                                                     res.json({result:"manager created",
                                                         "firstName":firstName,
                                                         "lastName":lastName,
+                                                        "userName":userName,
                                                         "email": email,
                                                         "managerId" : userId,
                                                         "companyId":company,
@@ -154,6 +154,7 @@ function createGenericCallbackFunction(firstName, lastName, email, password, rol
                                                     res.json({result:"user created",
                                                         "firstName":firstName,
                                                         "lastName":lastName,
+                                                        "userName":userName,
                                                         "email": email,
                                                         "userId" : userId,
                                                         "companyId":company,
@@ -189,6 +190,7 @@ function createGenericCallbackFunction(firstName, lastName, email, password, rol
                                             res.json({result:"admin created",
                                                 "firstName":firstName,
                                                 "lastName":lastName,
+                                                "userName":userName,
                                                 "email": email,
                                                 "adminId" : userId,
                                                 "companyId":companyId,
@@ -197,6 +199,7 @@ function createGenericCallbackFunction(firstName, lastName, email, password, rol
                                             res.json({result:"manager created",
                                                 "firstName":firstName,
                                                 "lastName":lastName,
+                                                "userName":userName,
                                                 "email": email,
                                                 "managerId" : userId,
                                                 "companyId":companyId,
@@ -205,6 +208,7 @@ function createGenericCallbackFunction(firstName, lastName, email, password, rol
                                             res.json({result:"user created",
                                                 "firstName":firstName,
                                                 "lastName":lastName,
+                                                "userName":userName,
                                                 "email": email,
                                                 "userId" : userId,
                                                 "companyId":companyId,
@@ -223,6 +227,7 @@ function createGenericCallbackFunction(firstName, lastName, email, password, rol
                 role : parseInt(role),
                 status : varEnumClass.status["Active"],
                 phoneNumber : phoneNumber,
+                userName : userName,
                 email : email,
                 createdBy : createdBy,
                 lastUpdatedTimeStamp : new Date(),
@@ -262,6 +267,7 @@ function createGenericCallbackFunction(firstName, lastName, email, password, rol
                                         res.json({result:"admin created",
                                             "firstName":firstName,
                                             "lastName":lastName,
+                                            "userName":userName,
                                             "email": email,
                                             "adminId" : userId,
                                             "companyId":company,
@@ -270,6 +276,7 @@ function createGenericCallbackFunction(firstName, lastName, email, password, rol
                                         res.json({result:"manager created",
                                             "firstName":firstName,
                                             "lastName":lastName,
+                                            "userName":userName,
                                             "email": email,
                                             "managerId" : userId,
                                             "companyId":company,
@@ -278,6 +285,7 @@ function createGenericCallbackFunction(firstName, lastName, email, password, rol
                                         res.json({result:"user created",
                                             "firstName":firstName,
                                             "lastName":lastName,
+                                            "userName":userName,
                                             "email": email,
                                             "userId" : userId,
                                             "companyId":company,
@@ -307,6 +315,7 @@ function createGenericCallbackFunction(firstName, lastName, email, password, rol
                                                 res.json({result:"admin created",
                                                             "firstName":firstName,
                                                             "lastName":lastName,
+                                                            "userName":userName,
                                                             "email": email,
                                                             "adminId" : userId,
                                                             "companyId":companyId,
@@ -315,6 +324,7 @@ function createGenericCallbackFunction(firstName, lastName, email, password, rol
                                                 res.json({result:"manager created",
                                                             "firstName":firstName,
                                                             "lastName":lastName,
+                                                            "userName":userName,
                                                             "email": email,
                                                             "managerId" : userId,
                                                             "companyId":companyId,
@@ -323,6 +333,7 @@ function createGenericCallbackFunction(firstName, lastName, email, password, rol
                                                 res.json({result:"user created",
                                                             "firstName":firstName,
                                                             "lastName":lastName,
+                                                            "userName":userName,
                                                             "email": email,
                                                             "userId" : userId,
                                                             "companyId":companyId,
@@ -346,13 +357,16 @@ GenericAddUserClass.prototype.getCompany = function (createdBy,callback){
     var company;
     if(createdBy != undefined){
         mongooseDBObjects.var_video_screening_company_user.findOne({userId : createdBy}, function(err,userCompany){
-            if(userCompany != ""){
+            if(userCompany != "" && userCompany != null){
                 userCompanyId = userCompany.companyId;
             }
             mongooseDBObjects.var_video_screening_company.findOne({_id:userCompanyId},function(err,companyCallBack){
-                if(companyCallBack != ""){
+                if(companyCallBack != "" && userCompany != null){
                     company = companyCallBack.companyName;
                     console.log("Company info: " + company);
+                    callback(company);
+                } else {
+                    company = false;
                     callback(company);
                 }
             });

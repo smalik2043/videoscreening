@@ -16,6 +16,7 @@ exports.createInterview = function(req,res){
     new mongooseDBObjects.var_video_screening_interview({
         interviewName : interviewName,
         createdBy : createdById,
+        status : parseInt("1"),
         lastUpdatedTimeStamp : new Date(),
         lastUpdatedBy: 'admin'
     }).save(function(err,interview,count){
@@ -108,5 +109,110 @@ exports.listQuestions = function(req,res){
             res.status(200);
             res.json(jsonQuestionsArray);
         });
+    });
+}
+
+exports.enterCandidatesForInterview = function(req,res){
+    res.set('Content-Type', 'application/json');
+    var interviewId = req.param("interviewId");
+    var managerId = req.param("managerId");
+    var candidatesObject = req.param("candidates");
+    console.log(candidatesObject);
+    var candidateInterviewBulk;// = mongooseDBObjects.var_video_screening_candidates.initializeUnorderedBulkOp();
+    var jsonCandidateArray = []
+    for(var i= 0,jsonArrayLength=candidatesObject.length;i<jsonArrayLength;i++){
+        /*candidateInterviewBulk.insert({interviewId:interviewId,userId:candidatesObject[i].caID,
+                                       createdBy:managerId,lastUpdatedTimeStamp : new Date(),lastUpdatedBy: managerId});*/
+        jsonCandidateArray.push({interviewId:interviewId,userId:candidatesObject[i].caID,
+            createdBy:managerId,status : parseInt("1"),lastUpdatedTimeStamp : new Date(),lastUpdatedBy: managerId});
+    }
+    //candidateInterviewBulk.execute();
+    //res.status(200);
+    //res.json({result:"candidates are created for an interview"})
+    mongooseDBObjects.var_video_screening_candidates.collection.insert(jsonCandidateArray,function(err,result){
+        if(err) throw err;
+        console.log("result is: " + JSON.stringify(result));
+        res.status(200);
+        res.json({result:"candidates are created for an interview"})
+    });
+
+}
+exports.listInterviews = function(req,res) {
+    res.set('Content-Type', 'application/json');
+    var userId = req.param("userId");
+    var managerId = req.param("managerId");
+    var jsonInterviewIDArray = [];
+    var jsonInterviewArray = [];
+    var jsonCreatedBy = [];
+    var jsonManagersArray = [];
+    var jsonQuestionArray = [];
+    var mainJSONObject = {};
+    var innerObject = {};
+    var jsonListInterview = [];
+    var questionArrayList = [];
+    var usersArrayList = [];
+
+    mongooseDBObjects.var_video_screening_candidates.find({userId : userId},function(err,screeningCandidate,count){
+        if(screeningCandidate != "" && screeningCandidate != null){
+            screeningCandidate.forEach(function(screeningCandidateLoop){
+                jsonInterviewIDArray.push(screeningCandidateLoop.interviewId);
+            });
+            //console.log(jsonInterviewIDArray);
+        }
+        mongooseDBObjects.var_video_screening_interview.find({_id:{$in:jsonInterviewIDArray}},function(err,interview,count){
+            if(interview != "" && interview != null){
+                interview.forEach(function(interviewLoop){
+                    jsonInterviewArray.push(interviewLoop);
+                    jsonCreatedBy.push(interviewLoop.createdBy);
+                });
+            }
+            mongooseDBObjects.var_video_screening_question.find({interviewId:{$in:jsonInterviewIDArray}},function(err,question,count){
+               if(question != "" && question!= null){
+                   question.forEach(function(questionLoop){
+                        jsonQuestionArray.push(questionLoop);
+                   });
+               }
+                var b = {};
+                for (var i = 0; i < jsonCreatedBy.length; i++) {
+                    b[jsonCreatedBy[i]] = jsonCreatedBy[i];
+                }
+                var c = [];
+                for (var key in b) {
+                    c.push(key);
+                }
+                mongooseDBObjects.var_video_screening_createLogin.find({_id:{$in:c}},{_id:1,firstName:1,lastName:1},function(err,managers,count){
+                    if(managers !="" && managers != null){
+                        managers.forEach(function(managersLoop){
+                            jsonManagersArray.push(managersLoop);
+                        });
+                    }
+                    console.log(jsonManagersArray);
+                    for(var i= 0,forJSONInterviewArray=jsonInterviewArray.length;i<forJSONInterviewArray;i++){
+                        innerObject['interviewId'] = jsonInterviewArray[i]._id;
+                        innerObject['interviewName'] = jsonInterviewArray[i].interviewName;
+                        for(var j= 0,forJSONQuestionArray = jsonQuestionArray.length;j<forJSONQuestionArray;j++){
+                            if(jsonQuestionArray[j].interviewId == jsonInterviewArray[i]._id){
+                                questionArrayList.push({questionId:jsonQuestionArray[j]._id,question:jsonQuestionArray[j].question});
+                            }
+                        }
+                        //console.log(jsonCreatedBy);
+                        //console.log(jsonInterviewArray);
+                        for(var k= 0,forJSONManagersArray = jsonManagersArray.length;k<forJSONManagersArray;k++){
+                            if(jsonInterviewArray[i].createdBy == jsonManagersArray[k]._id){
+                                innerObject['Manager'] = jsonManagersArray[k].firstName +" "+ jsonManagersArray[k].lastName;
+                            }
+                        }
+                        innerObject['questions'] = questionArrayList;
+                        jsonListInterview.push(innerObject);
+                        innerObject = {};
+                        questionArrayList = [];
+                    }
+                    res.status(200);
+                    res.json(jsonListInterview);
+                });
+
+            });
+        });
+
     });
 }

@@ -54,7 +54,12 @@ app.post('/addQuestion',interviewQuestionService.addQuestion);
 app.post('/editQuestion',interviewQuestionService.editQuestion);
 app.put('/deleteQuestion',interviewQuestionService.deleteQuestion);
 app.get('/listQuestions',interviewQuestionService.listQuestions);
+app.post('/enterCandidatesForInterview',interviewQuestionService.enterCandidatesForInterview);
+app.get('/listInterviews',interviewQuestionService.listInterviews);
 app.get('/testService',loginService.testService);
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
+});
+process.on('uncaughtException', function (error) {
+    console.log(error.stack);
 });
