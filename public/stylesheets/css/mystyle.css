@@ -1,0 +1,215 @@
+@charset "utf-8";
+/* CSS Document */
+
+body{  background-image: url(../..//images/bg.jpg);
+  
+  /* Image is centered vertically and horizontally at all times 
+  background-position: center center;*/
+  
+  /* Image doesn't repeat */
+  background-repeat: no-repeat;
+  
+  /* Makes the image fixed in the viewport so that it doesn't move when 
+     the content height is greater than the image height */
+  background-attachment: fixed;
+  
+  /* This is what makes the background image rescale based on its container's size */
+  /*background-size: cover;*/ margin:0px auto; padding:0px; background-size: 100% 116%; }
+
+.wrapper{/*background:url(../images/bg.jpg)  100% 100%;*/ 
+
+
+}
+@font-face {
+  font-family: 'HelveticaLTStd-Light';
+  src: url('HelveticaLTStd-Light.eot?#iefix') format('embedded-opentype'),  url('HelveticaLTStd-Light.otf')  format('opentype'),
+	     url('HelveticaLTStd-Light.woff') format('woff'), url('HelveticaLTStd-Light.ttf')  format('truetype'), url('HelveticaLTStd-Light.svg#HelveticaLTStd-Light') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+.clearRight {
+	clear:right;
+}
+.headerContainer {
+	border-bottom:1px solid #9d9d9d;
+	float:left;
+	width:100%;
+	padding:20px 0;
+}
+.borderBot {
+	border-bottom:1px solid #aeaeae;
+}
+
+.headerContainer .col-xs-3 img {
+	width:100%;
+}
+
+.adminHeader {
+    float: left;
+    height: 90px;
+    width: 100%;
+	margin-top:30px;
+}
+.appLogo {
+margin-top:30px;
+float:left;
+}
+
+
+.appUser {
+	float:left;
+	margin-top:30px;
+	
+}
+.adminHeader .dropdown {
+    width: 75%;
+	margin-top: 7px;
+}
+.userImage {
+    float: left;
+    width: 30px;
+	margin-top: 7px;
+}
+.userImage img {
+	width:100%;
+}
+
+
+.headerContainer .btn-default {
+	background-color:transparent;
+	border:none;
+}
+.adminHeader .col-xs-6 img {
+	max-width:100%;
+}
+.adminHeader .dropdown-menu {
+	background-color:#151616;
+	padding:0;
+}
+
+.adminHeader .dropdown-menu > li > a {
+	color:#d3d3d3;
+	text-align:center;
+}
+.adminHeader .dropdown-menu > li {
+	border-bottom:1px solid #d3d3d3;
+	padding: 7px 20px;
+}
+.adminHeader .dropdown-menu > li > a:hover, .adminHeader .dropdown-menu > li > a:focus {
+	color:#151616;
+}
+.manager {
+	width:100%;
+	padding-top:30px;
+	padding-bottom:30px;
+	padding-left:25px;
+	padding-right:25px;
+/*	border-bottom:1px solid #919191;*/
+}
+.lessWidth {
+	width:20%;
+}
+
+.manager img {
+	margin-right:3%;
+}
+
+.bgColr {
+	background-color:#fff;
+	border-left: 1px solid #919191;
+	border-right: 1px solid #919191;
+    padding: 0;
+}
+.bgColr span {
+    color: #666666;
+    font-size: 22px;
+    line-height: 51px;
+}
+.c-submit{  background: none repeat scroll 0 0 #00adef !important;
+    border: medium none;
+    border-radius: 20px;
+    color: #ffffff !important;
+    cursor: pointer;
+    display: block;
+    font-family: Helvetica;
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 0;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 5% 0;
+    text-align: center;
+    width: 61%;
+}
+.profileArea {
+	width:100%;
+	padding: 30px 15px;
+}
+
+.profileArea h3 {
+	color:#00adef;
+	width:100%;
+	text-align:center;
+}
+
+.profileFields {
+    float: left;
+    margin-bottom: 25px !important;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 0;
+    width: 100%;
+}
+	
+.profileFields .companyName, .profileFields .dropdown {
+	width:100%;
+	margin-top: 30px;
+}
+.profileFields .btn , .profileFields input{
+	width:100%;
+	border-radius:25px;
+	padding: 3.5% 6%;
+	font-size: 15px;
+	text-align:left;
+}
+.profileFields .btn {
+    background-color: #919191;
+    color: #fff;  
+}
+.companyName .form-control {
+	height:42px;
+	 background-color: transparent;
+}
+
+.profileFields .caret {
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 8px solid;
+    color: #fff !important;
+    display: inline-block;
+    height: 0;
+    /*margin-left: 30% !important;*/
+    vertical-align: middle;
+    width: 0;
+}
+.profileFields .dropdown-menu {
+	width:100%;
+}
+.proBtn {
+    float: left;
+    margin-left: 5%;
+    margin-top: 29px;
+    width: 43% !important;
+	background-color:#00adef !important;
+	font-size:14px !important;
+	 text-align: center !important;
+}
+.profileArea thead, .profileArea tr, .profileArea td, .profileArea th {
+	border-top:none !important;
+	border-right:1px solid #ddd;
+	text-align:center;
+}
+.tablezCont {
+    float: left;
+    margin-left: -10%;
+}

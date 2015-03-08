@@ -1,0 +1,42 @@
+
+<!DOCTYPE html>
+<html lang="en" ng-app="videoScreeningApp">
+  <head>
+    <meta charset="utf-8">
+<!--<meta name="viewport" content="width=device-width">-->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Untitled Document</title>
+<link href="stylesheets/css/style.css" rel="stylesheet" type="text/css" />
+<!--<link href="css/responsive.css" rel="stylesheet" type="text/css" />-->
+
+</head>
+
+<body ng-controller="mainController">
+<div class="container">
+<div class="loginContainer">
+	<div class="login-logo"><img src="images/logo.png" /></div>
+    <form role="form" id="loginForm" name="loginForm">
+    <div class="form-group">
+    	<div class="input-field"><input type="text"  class="form-control" placeholder="User Name" name="userName" id="userName" ng-model="formData.userName"/></div>
+        <div class="input-field"><input type="password"  class="form-control" placeholder="Password" name="password" id="password" ng-model="formData.password"/></div>
+        <div class="input-field"><input type="submit" class=" btn btn-default c-submit" value="LOGIN" ng-click="login()"/></div>
+        <div class="input-field"><a href="#">Password</a>|<a href="#" id="newUserBtn" name="newUserBtn">Register</a></div>
+    </div>
+    </form>
+    </div>
+</div>
+</div>
+  <link href="stylesheets/css/bootstrap-responsive.css" rel="stylesheet" type="text/css" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="/stylesheets/jquery-ui-1.10.3.css" />
+  <script src="/javascripts/jquery-1.9.1.js"></script>
+  <script src="/javascripts/jquery-ui-1.10.3.js"></script>
+  <script src="/javascripts/angular.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0rc1/angular-route.min.js"></script>
+  <script src="/javascripts/config.js"></script>
+  <script src="/javascripts/service.js"></script>
+  <script src="/javascripts/loginJS.js"></script>
+</body>
+
+</html>
