@@ -76,6 +76,12 @@ exports.listUsers = function(req,res){
     var listUsersClass = new ListUsersClass();
     listUsersClass.listUsersFunction(req,res);
 }
+
+exports.webViewLogin = function(req,res) {
+    var loginClass = new LoginClass(req,res);
+    loginClass.loginMethod();
+}
+
 var CreateLoginClass = function(req,res){
     this.req = req;
     this.res = res;
@@ -160,7 +166,12 @@ LoginClass.prototype.loginMethod = (function (loginCallback){
 })(loginCallbackFunction);
 
 function loginCallbackFunction(req,res){
-    res.set('Content-Type', 'application/json');
+    var ua = req.headers['user-agent'];
+   // if(ua == 'Mozilla'){
+        console.log("in mozilla");
+        res.set('Content-Type', 'application/json');
+        res.setHeader("Access-Control-Allow-Origin", "*");
+    //}
     var userName = req.param('userName');
     var password = req.param('password');
     var userId;
@@ -170,12 +181,12 @@ function loginCallbackFunction(req,res){
     var role;
     var createdBy;
     var companyId;
-
+    console.log(userName + " " + password + " " +ua.substring(0,7));
     mongooseDBObjects.var_video_screening_createLogin.find({userName: userName},function(err, getUser){
         if(err) return console.error(err);
         if(getUser.length == "") {
             res.status(404);
-            res.json({result : 'Invalid User'});
+            res.json({result : "Invalid User"});
         } else {
             getUser.forEach(function(getUserLoop){
                 var decryptPassword = new EncryptDecryptPasswordClass(getUserLoop.password);

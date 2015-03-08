@@ -35,6 +35,8 @@ if ('development' == app.get('env')) {
 
 app.get('/', routes.index);
 app.get('/users', user.list);
+app.get('/signup',routes.signup);
+app.get('/adminDashboard',routes.adminDashboard);
 
 //Create Login//
 app.post('/createLogin' , loginService.createLogin);
@@ -56,6 +58,7 @@ app.put('/deleteQuestion',interviewQuestionService.deleteQuestion);
 app.get('/listQuestions',interviewQuestionService.listQuestions);
 app.post('/enterCandidatesForInterview',interviewQuestionService.enterCandidatesForInterview);
 app.get('/listInterviews',interviewQuestionService.listInterviews);
+app.post('/webViewLogin' , loginService.webViewLogin);
 app.get('/testService',loginService.testService);
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));

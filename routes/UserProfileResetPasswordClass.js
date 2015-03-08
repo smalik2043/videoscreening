@@ -14,10 +14,9 @@ var ForgotMailerLinkClass = require('./MailerClass');
 //var im = require('imagemagick');
 
 //Parent Class
-function GenericResetClass(email,password,trackBy,req,res){
+function GenericResetClass(email,password,req,res){
     this.email = email;
     this.password = password;
-    this.trackBy = trackBy;
     this.req = req;
     this.res = res;
 }
@@ -27,9 +26,6 @@ GenericResetClass.prototype.getEmail = function() {
 }
 GenericResetClass.prototype.getPassword = function() {
     return this.password;
-}
-GenericResetClass.prototype.getTrackBy = function() {
-    return this.trackBy;
 }
 GenericResetClass.prototype.getRequest = function() {
     return this.req;
@@ -45,8 +41,8 @@ GenericResetClass.prototype.sendForgotYourPasswordLinkFunc = function() {
 }
 
 //Child Class(For Forgot Password)
-function ForgotYourPasswordClass(email,password,trackBy,req,res){
-    GenericResetClass.call(this,email,"","",req,res);
+function ForgotYourPasswordClass(email,password,req,res){
+    GenericResetClass.call(this,email,"",req,res);
 }
 ForgotYourPasswordClass.prototype = Object.create(GenericResetClass.prototype);
 ForgotYourPasswordClass.prototype.sendForgotYourPasswordLinkFunc = function(){
@@ -74,8 +70,8 @@ function guid() {
     return (S4()+S4()+"-"+S4()+"-"+S4()+"-"+S4()+"-"+S4()+S4()+S4());
 }
 //Child Class(For Password Reset.)
-function ResetPasswordClass(email,password,trackBy,req,res){
-    GenericResetClass.call(this, email, password,"",req,res);
+function ResetPasswordClass(email,password,req,res){
+    GenericResetClass.call(this, email, password,req,res);
 }
 ResetPasswordClass.prototype = Object.create(GenericResetClass.prototype);
 ResetPasswordClass.prototype.savePasswordAndProfile = function() {
@@ -96,34 +92,33 @@ ResetPasswordClass.prototype.savePasswordAndProfile = function() {
 }
 
 //Child Class(For User Profile Password and Image reset.)
-/*
-function UserProfileResetClass(email,password,trackBy,req,res){
-    GenericResetClass.call(this, email, password,trackBy,req,res);
+
+function UserProfileResetClass(email,password,req,res){
+    GenericResetClass.call(this, email, password,req,res);
 }
 UserProfileResetClass.prototype = Object.create(GenericResetClass.prototype);
 UserProfileResetClass.prototype.savePasswordAndProfile = function() {
     var email = this.getEmail();
     var password = this.getPassword();
-    var trackBy = this.getTrackBy();
     var req = this.getRequest();
     var res =this.getResponse();
     var imagePath;
     var obj = req.files;
     var employeeID;
 
-    for(var key in obj) {
-        if(key == "uploadUserImage") {
-            imagePath = req.files.uploadUserImage.path;
-        } else {
-            imagePath == undefined;
-        }
-    }
+//    for(var key in obj) {
+//        if(key == "uploadUserImage") {
+//            imagePath = req.files.uploadUserImage.path;
+//        } else {
+//            imagePath == undefined;
+//        }
+//    }
     mongooseDBObjects.var_video_screening_createLogin.find({email:email},{_id:1},function(err,employee,count){
           employee.forEach(function(employeeLoop){
              employeeID = employeeLoop._id;
           });
         var jsonString = {};
-        if(password == undefined || password == "") {
+        /*if(password == undefined || password == "") {
             var var_user_profile_image = {};
             var_user_profile_image["data"] = fs.readFileSync(imagePath);
 
@@ -146,18 +141,19 @@ UserProfileResetClass.prototype.savePasswordAndProfile = function() {
             })
             //jsonString["employee_image"] = var_user_profile_image;
             jsonString["password"] = password;
-        }
+        }*/
+        jsonString["password"] = password;
         mongooseDBObjects.var_video_screening_createLogin.update({email:email},{$set:jsonString},function(err,company,count){
-            mongooseDBObjects.var_video_screening_company_user.update({employee_id: req.session.name,company_id : req.session.company },{ $set: {track_by:trackBy}},function(err,doc,count){
+            //mongooseDBObjects.var_video_screening_company_user.update({employee_id: req.session.name,company_id : req.session.company },{ $set: {track_by:trackBy}},function(err,doc,count){
                 res.json({result: "success"});
-            });
+            //});
         });
     });
 
 }
-*/
+
 
 module.exports.GenericResetClass = GenericResetClass;
 module.exports.ResetPasswordClass = ResetPasswordClass;
-//module.exports.UserProfileResetClass = UserProfileResetClass;
+module.exports.UserProfileResetClass = UserProfileResetClass;
 module.exports.ForgotYourPasswordClass = ForgotYourPasswordClass;

@@ -26,10 +26,9 @@ exports.forgotUserPassword = function(req,res) {
     forgotYourPassword.sendForgotYourPasswordLinkFunc();
 }
 
-/*exports.resetUserProfile = function(req,res) {
+exports.resetUserProfile = function(req,res) {
     var email = req.body.emailReset;
     var password = req.body.passwordReset;
-    var trackBy = req.body.trackBy;
     var imagePath;
     var encryptPassword = new EncryptDecryptPasswordClass(password);
     password = encryptPassword.encryptPasswordFunction();
@@ -37,4 +36,4 @@ exports.forgotUserPassword = function(req,res) {
     //GenericUserResetClass.UserProfileResetClass.prototype = new GenericUserResetClass.GenericResetClass(email,password,req,res);
     var userProfileResetClass = new GenericUserResetClass.UserProfileResetClass(email,password,trackBy,req,res);
     userProfileResetClass.savePasswordAndProfile();
-}*/
+}
