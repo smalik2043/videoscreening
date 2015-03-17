@@ -152,8 +152,30 @@ UserProfileResetClass.prototype.savePasswordAndProfile = function() {
 
 }
 
+function ResetPasswordService(email,password,req,res){
+    GenericResetClass.call(this, email, password,req,res);
+}
+ResetPasswordService.prototype = Object.create(GenericResetClass.prototype);
+ResetPasswordService.prototype.savePasswordAndProfile = function() {
+    var userName = this.getEmail();
+    var password = this.getPassword();
+    var req = this.getRequest();
+    var res =this.getResponse();
+    mongooseDBObjects.var_video_screening_createLogin.find({userName: userName}, function(err, employee, count){
+        if(employee == "") {
+            res.json({result:"userName not found."})
+        } else {
+            mongooseDBObjects.var_video_screening_createLogin.update({userName:userName},{$set:{password: password}}, function(err,updateEmployee,count){
+                res.status(200);
+                res.json({result:"Password reset."});
+            });
+        }
+    });
+}
+
 
 module.exports.GenericResetClass = GenericResetClass;
 module.exports.ResetPasswordClass = ResetPasswordClass;
 module.exports.UserProfileResetClass = UserProfileResetClass;
 module.exports.ForgotYourPasswordClass = ForgotYourPasswordClass;
+module.exports.ResetPasswordService = ResetPasswordService;

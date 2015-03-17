@@ -14,7 +14,7 @@ exports.resetUserPassword = function(req,res) {
     var password = req.param('password');
     var encryptPassword = new EncryptDecryptPasswordClass(password);
     password = encryptPassword.encryptPasswordFunction();
-    var resetPasswordClass = new GenericUserResetClass.ResetPasswordClass(uuid,password,"",req,res);
+    var resetPasswordClass = new GenericUserResetClass.ResetPasswordClass(uuid,password,req,res);
     resetPasswordClass.savePasswordAndProfile();
 }
 
@@ -22,7 +22,7 @@ exports.forgotUserPassword = function(req,res) {
     var email = req.param('email');
     var thisreq = req;
     var thisres = res;
-    var forgotYourPassword = new GenericUserResetClass.ForgotYourPasswordClass(email,"","",thisreq,thisres);
+    var forgotYourPassword = new GenericUserResetClass.ForgotYourPasswordClass(email,"",thisreq,thisres);
     forgotYourPassword.sendForgotYourPasswordLinkFunc();
 }
 
@@ -34,6 +34,15 @@ exports.resetUserProfile = function(req,res) {
     password = encryptPassword.encryptPasswordFunction();
     //var genericResetClass = new GenericUserResetClass.GenericResetClass(email,password,req,res);
     //GenericUserResetClass.UserProfileResetClass.prototype = new GenericUserResetClass.GenericResetClass(email,password,req,res);
-    var userProfileResetClass = new GenericUserResetClass.UserProfileResetClass(email,password,trackBy,req,res);
+    var userProfileResetClass = new GenericUserResetClass.UserProfileResetClass(email,password,req,res);
     userProfileResetClass.savePasswordAndProfile();
+}
+
+exports.resetPasswordService = function(req,res) {
+    var userName = req.param('userName');
+    var password = req.param('password');
+    var encryptPassword = new EncryptDecryptPasswordClass(password);
+    password = encryptPassword.encryptPasswordFunction();
+    var resetPasswordService = new GenericUserResetClass.ResetPasswordService(userName,password,req,res);
+    resetPasswordService.savePasswordAndProfile();
 }

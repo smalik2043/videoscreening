@@ -9,6 +9,7 @@ var routes = require('./routes');
 var user = require('./routes/user');
 var loginService = require('./routes/LoginService');
 var interviewQuestionService = require('./routes/InterviewQuestionService');
+var resetPasswordClass = require('./routes/ResetPasswordClass');
 var http = require('http');
 var path = require('path');
 
@@ -60,6 +61,7 @@ app.post('/enterCandidatesForInterview',interviewQuestionService.enterCandidates
 app.get('/listInterviews',interviewQuestionService.listInterviews);
 app.post('/webViewLogin' , loginService.webViewLogin);
 app.get('/testService',loginService.testService);
+app.post('/resetPassword',resetPasswordClass.resetPasswordService);
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
 });
