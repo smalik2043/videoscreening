@@ -108,7 +108,7 @@ function createLoginCallbackFunction(req,res){
     var createdBy = typeof(req.param('createdBy')) == "undefined" ? "" : req.param('createdBy');
 
     if(typeof(firstName) == "undefined" || typeof(lastName) == "undefined" ||  typeof(email) == "undefined"
-        || typeof(password) == "undefined" || typeof(phoneNumber) == "undefined") {
+        || typeof(password) == "undefined" || typeof(company) == "undefined" || typeof (userName) == "undefined") {
         res.status(400);
         res.json({result:"Mandatory parameter required"});
     } else {

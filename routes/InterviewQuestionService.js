@@ -7,6 +7,23 @@
  */
 
 var mongooseDBObjects = require('./MongooseDBObjects.js');
+//var Db = require('../node_modules/mongodb').Db,
+//    MongoClient = require('../node_modules/mongodb').MongoClient,
+//    Server = require('../node_modules/mongodb').Server,
+//    ReplSetServers = require('../node_modules/mongodb').ReplSetServers,
+//    ObjectID = require('../node_modules/mongodb').ObjectID,
+//    Binary = require('../node_modules/mongodb').Binary,
+//    GridStore = require('../node_modules/mongodb').GridStore,
+//    //Grid = require('../node_modules/mongodb').Grid,
+//    Grid = require('../node_modules/gridfs-stream'),
+//    Code = require('../node_modules/mongodb').Code,
+//    BSON = require('../node_modules/mongodb').pure().BSON,
+//    assert = require('assert');
+//    fs = require('fs');
+var mongo = require('../node_modules/mongodb');
+ObjectID = require('../node_modules/mongodb').ObjectID;
+var Grid = require('../node_modules/gridfs-stream');
+var streamifier = require('../node_modules/streamifier');
 
 exports.createInterview = function(req,res){
     res.set('Content-Type', 'application/json');
@@ -215,4 +232,85 @@ exports.listInterviews = function(req,res) {
         });
 
     });
+}
+//../node_modules/gridfs-stream
+exports.saveAnswerVideo = function(req,res){
+    var interviewId = req.param('interviewId');
+    var questionId = req.param('questionId');
+    var userId = req.param('userId');
+    var video_byte_string = req.param('videoAnswer');
+    var fileId = new ObjectID();
+    console.log("Object Id: " + fileId);
+    var db = new mongo.Db('videoScreeningDB',new mongo.Server('localhost',27017));
+    db.open(function(err){
+        if(err)
+            throw err;
+        var gfs = Grid(db,mongo);
+        var writeStream = gfs.createWriteStream({mode:'w',content_type: 'video/mov'});
+        //var imageBase64 = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACwAAAAsCAYAAAFpg2qXAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6MERENjc3QTVBNzlCMTFFNDlBM0JEN0VDQUUyNEIzODgiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6MERENjc3QTZBNzlCMTFFNDlBM0JEN0VDQUUyNEIzODgiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDowREQ2NzdBM0E3OUIxMUU0OUEzQkQ3RUNBRTI0QjM4OCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDowREQ2NzdBNEE3OUIxMUU0OUEzQkQ3RUNBRTI0QjM4OCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/Pikq+moAAASaSURBVHjaYvz//z8DEGQwoIIZDECJjP+oACT2nwVJFSOUBhvBBOVIoxkFl3gGVfkfppMRatxvdB0AAQSSMAXSxshijP+hbkUWZEJzTRfIfGSVjOiuYERyBVwQ2dz/AAEE8qb2fyIByARbBvyAEeYOZNfyoUkyIrmNAV3xZyh9GsWdSIAF2atobAw+QAAx4oh0dPAGiNewoFuFDzARkOeAOqWQGMWKUNoC5kEGPJ76j80ZjDhCoxWI/wBxDjHOcIXazoyueD6ataDUaoZsG7Kbk4DYDk2DF3oMIgMVHM75hayYmIjZCxBAsOgG5T9JBuoBVVBgZFJgqAVa0t8JFb/NREqawwIuoPF3EJs+YSAZyVXyQHwDKv4DqfAA4X5cBi8A4lVIfE+oYfOQxB4BsSZU/AdU7DUQr0DxAVo5DOJ7ofHxYXS9ecgFFzrYhsR+hyd4hIB4OpQ9GV2SBU8pCAozQaTIfQvEd4DYHE1tMBCvI6VwgUWWOjS2haCG/gTiUiT5dVg1A4MDZOMaKH8jliRECqhHjjwQ1vlPPbALZCZAADEiVYUhQCxKYYY5C6tbWKAlz20qlhPPgVgKW+1NDaDDRIHm31jqXxiwo8Tgi3jk/jMx0AhQYrAmpQaDSjNlpHCMgopzoxWZ/0kxeD60/L2HJLYcS4WO18WghL0SiJ9A+X+h1TEuYILEXgt1BANyloaBCGj2fgPlTyGiPIYBSTR+BhOWIlQYKQcRC9yIiby/UDqGBIPPEGNwE5TWgEYcLvAQiX2VFINB4AEQO2JRsx+I5aDsraSkYyck9j5oGj0FxC+hbAckeR9SDAa5yApNDNSxEUPiv8CXnvFlkONQjQVA/A3NB/qEmmXItfRPHGomQjEpgBHZYFALqJGCQskMif0KVIPsATKcqVxqsoLC2AWId1PRUF1QDwMgwJDzvQ606h5sYBfUbQywZgULtAVF7WCmNtgLxB7oLTd6gltAPBParYIl+n9AzAVyGLQNiw5CWNAyP73AJWiZgAvMAeI8LNldjNKuGLngD3S0gNgyjPatKyLALyLam0T5ghIA6lM9hvarQPW8KhDLYEl2RkB8FIg7oA0M5ME8kJsCgbgEewsWc2iQVLAQiCWIaC4JQJtVlIAMSpLETSDmB+J4aE1NCHyADiuxQJsQVG3IB6H1VQ5haaKBWl6fyLDzL7THvAdLACDbmUqKg7nR0psdmvxaKqT3lWh80BCAOxKfi5pdJRUqOFiTwFAm2V2wy1jSHGgkK5ECx4Kau/loYveB+DA1HPwb6sC/aOKgUbKDQMxGomNBozubYUO1SACUeb9Sq/d8Bdq1eYsmbgdtScPGBUEhp4QkLwdNl61I44iBaGZ8hyaPw8Q4hJSK4ykQiwBxLDR00fUWQDEpIA/b6B+1xycWg1ro0M5MDxB/JEHvT+gwpRI0g00m1XJcIfyPCL0voCOPpUhiEtDhTxloYDyFjrO+INJMgm5gwVGUgNqjy8gI/RdQfJ0KxZ4LtmIP1IDXhmaqoQDAw41Xoa2q54PYoc+hbrzKiGXc1RRahIkwoM050gnA7HwDHQlCntZkAAD2FHBZPcvq3AAAAABJRU5ErkJggg==';//The base64 has a imageURL
+
+        // you can get chunks of input data so you can get complete through chunks appending on request.
+        //var byte_string = imageBase64.substr(23);//The base64 has a imageURL
+        var buffer = new Buffer(video_byte_string).toString('base64');
+        var response = streamifier.createReadStream(buffer).pipe(writeStream);
+        var fileId = response._store.fileId;
+        writeStream.on("finish",function(){
+            db.close();
+            console.log("Finished writing the stream.");
+            new mongooseDBObjects.var_video_screening_candidates_answers({
+                interviewId : req.param('interviewId'),
+                questionId : req.param('questionId'),
+                userId : req.param('userId'),
+                videoAnswerId : fileId,
+                lastUpdatedTimeStamp : new Date(),
+                lastUpdatedBy: 'device'
+            }).save(function(err,answer,count){
+                    if(err) return console.log(err);
+                    res.status(200);
+                    res.json({id:answer._id,interviewId:answer.interviewId,questionId:answer.questionId,userId:answer.userId,
+                        videoAnswerId:answer.videoAnswerId});
+                });
+        });
+
+    });
+
+////    var bytes = [];
+////    var str = "Hello World.";
+////    for (var i = 0; i < str.length; ++i)
+////    {
+////        bytes.push(str.charCodeAt(i));
+////    }
+//    var interviewId = req.param('interviewId');
+//    var questionId = req.param('questionId');
+//    var userId = req.param('userId');
+//    var bytes = [];
+//    bytes = req.param('videoAnswer');
+//
+//    var db = new Db('videoScreeningDB', new Server('localhost', 27017,{w:1}));
+//
+//    db.open(function(err, db) {
+//        // Our file ID
+//        var fileId = new ObjectID();
+//
+//        // Open a new file
+//        var gridStore = new GridStore(db, fileId, 'w');
+//        gridStore.open(function(err, gridStore) {
+//
+//            //Write a buffer
+//            gridStore.write(new Buffer(bytes), function(err, gridStore) {
+//
+//                // Close the
+//                gridStore.close(function(err, result) {
+//
+//                    // Read back all the written content and verify the correctness
+//                    GridStore.read(db, fileId, function(err, fileData) {
+//                        //assert.equal('Hello worldBuffer Hello world', fileData.toString());
+//                        console.log(fileData);
+//                        db.close();
+//                    });
+//                });
+//            });
+//            // });
+//        });
+//    });
 }

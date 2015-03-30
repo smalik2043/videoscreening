@@ -35,6 +35,19 @@ videoScreeningApp.controller('mainController',function($scope,$http,$window){
                 alert(data.result);
             });
     };
+
+    $scope.signup = function() {
+        $scope.signUpFormData.role = "1";
+        $http.post($scope.ipaddress+'/createAdmin', $scope.signUpFormData)
+            .success(function(data) {
+                $scope.signUpFormData = {}; // clear the form so our user is ready to enter another
+                $window.location.href = $scope.ipaddress;
+            })
+            .error(function(data) {
+                console.log('Error: ' + data);
+                alert(data.result);
+            });
+    };
     /*    $http.get('/api/todos')
      .success(function(data) {
      $scope.todos = data;

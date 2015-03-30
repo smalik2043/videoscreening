@@ -14,6 +14,7 @@ var video_screening_company_user = videoScreeningDB.model('videoScreeningCompany
 var video_screening_interview = videoScreeningDB.model('videoScreeningInterview');
 var video_screening_question = videoScreeningDB.model('videoScreeningQuestion');
 var video_screening_candidates = videoScreeningDB.model('videoScreeningCandidates');
+var video_screening_candidates_answers = videoScreeningDB.model('videoScreeningCandidatesAnswers');
 
 module.exports.var_video_screening_createLogin = video_screening_createLogin;
 module.exports.var_video_screening_company = video_screening_company;
@@ -21,3 +22,4 @@ module.exports.var_video_screening_company_user = video_screening_company_user;
 module.exports.var_video_screening_interview = video_screening_interview;
 module.exports.var_video_screening_question = video_screening_question;
 module.exports.var_video_screening_candidates = video_screening_candidates;
+module.exports.var_video_screening_candidates_answers = video_screening_candidates_answers;

@@ -40,7 +40,7 @@ app.get('/signup',routes.signup);
 app.get('/adminDashboard',routes.adminDashboard);
 
 //Create Login//
-app.post('/createLogin' , loginService.createLogin);
+app.post('/createAdmin' , loginService.createLogin);
 app.post('/addManager' , loginService.addManager);
 app.post('/addUser' , loginService.addUser);
 app.post('/adminLogin' , loginService.adminLogin);
@@ -62,6 +62,7 @@ app.get('/listInterviews',interviewQuestionService.listInterviews);
 app.post('/webViewLogin' , loginService.webViewLogin);
 app.get('/testService',loginService.testService);
 app.post('/resetPassword',resetPasswordClass.resetPasswordService);
+app.post('/saveAnswerVideo',interviewQuestionService.saveAnswerVideo);
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
 });

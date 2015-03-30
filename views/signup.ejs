@@ -1,6 +1,6 @@
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="videoScreeningApp">
   <head>
     <meta charset="utf-8">
 <!--<meta name="viewport" content="width=device-width">-->
@@ -11,18 +11,19 @@
 
 </head>
 
-<body>
+<body ng-controller="mainController">
 <div class="container">
 <div class="loginContainer">
 	<div class="login-logo"><img src="images/logo.png" /></div>
-    <form role="form">
+    <form role="form" id="signupForm" name="signupForm">
     <div class="form-group">
-    	<div class="input-field"><input type="text"  class="form-control" placeholder="First Name*" /></div>
-        <div class="input-field"><input type="text"  class="form-control" placeholder="Last Name*" /></div>
-        <div class="input-field"><input type="password"  class="form-control" placeholder="Password*" /></div>
-        <div class="input-field"><input type="text"  class="form-control" placeholder="Email*" /></div>
-        <div class="input-field"><input type="text"  class="form-control" placeholder="Company" /></div>
-        <div class="input-field"><input type="submit" class=" btn btn-default c-submit" value="SIGN UP" /></div>
+        <div class="input-field"><input type="text"  class="form-control" placeholder="User Name*" name="userName" id="userName" ng-model="signUpFormData.userName"/></div>
+    	<div class="input-field"><input type="text"  class="form-control" placeholder="First Name*" name="firstName" id="firstName" ng-model="signUpFormData.firstName"/></div>
+        <div class="input-field"><input type="text"  class="form-control" placeholder="Last Name*" name="lastName" id="lastName" ng-model="signUpFormData.lastName"/></div>
+        <div class="input-field"><input type="password"  class="form-control" placeholder="Password*" name="password" id="password" ng-model="signUpFormData.password"/></div>
+        <div class="input-field"><input type="text"  class="form-control" placeholder="Email*" name="email" id="email" ng-model="signUpFormData.email"/></div>
+        <div class="input-field"><input type="text"  class="form-control" placeholder="Company*" name="company" id="company" ng-model="signUpFormData.company"/></div>
+        <div class="input-field"><input type="submit" class=" btn btn-default c-submit" value="SIGN UP" ng-click="signup()"/></div>
         <div class="input-field"><a href="#">Forget Password</a></div>
     </div>
     </form>
@@ -32,6 +33,12 @@
 <link href="stylesheets/css/bootstrap-responsive.css" rel="stylesheet" type="text/css" />
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+  <script src="/javascripts/jquery-1.9.1.js"></script>
+  <script src="/javascripts/jquery-ui-1.10.3.js"></script>
+  <script src="/javascripts/angular.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0rc1/angular-route.min.js"></script>
+  <script src="/javascripts/config.js"></script>
+  <script src="/javascripts/service.js"></script>
 </body>
 
 </html>

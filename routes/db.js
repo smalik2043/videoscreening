@@ -78,16 +78,26 @@ var video_screening_candidates = new videoScreeningSchema({
     lastUpdatedBy : String
 });
 
+var video_screening_candidates_answers = new videoScreeningSchema({
+    interviewId : String,
+    questionId : String,
+    userId : String,
+    videoAnswerId : Object,
+    lastUpdatedTimeStamp : Date,
+    lastUpdatedBy : String
+});
+
 videoScreeningDB.model('videoScreeningCreateLogin',video_screening_createLogin);
 videoScreeningDB.model('videoScreeningCompany',video_screening_company);
 videoScreeningDB.model('videoScreeningCompanyUser',video_screening_company_user_bridge_table);
 videoScreeningDB.model('videoScreeningInterview',video_screening_interview);
 videoScreeningDB.model('videoScreeningQuestion',video_screening_question);
 videoScreeningDB.model('videoScreeningCandidates',video_screening_candidates);
+videoScreeningDB.model('videoScreeningCandidatesAnswers',video_screening_candidates_answers);
 videoScreeningDB.connect(configFile.dbAddress, function (err, db) {
     if (err) {
         throw err;
     } else {
-        console.log("successfully connected to the database");
+        console.log("successfully connected to the database videoScreening");
     }
 });
