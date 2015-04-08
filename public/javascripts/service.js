@@ -22,6 +22,9 @@ videoScreeningApp.config(['$routeProvider','$locationProvider',
     }]);
 videoScreeningApp.controller('mainController',function($scope,$http,$window){
     $scope.formData = {};
+    $scope.signUpFormData = {};
+    $scope.addManagerFormData = {};
+    $scope.companyProfileFormData = {};
     $scope.ipaddress = config.ipaddress;
 
     $scope.login = function() {
@@ -42,6 +45,31 @@ videoScreeningApp.controller('mainController',function($scope,$http,$window){
             .success(function(data) {
                 $scope.signUpFormData = {}; // clear the form so our user is ready to enter another
                 $window.location.href = $scope.ipaddress;
+            })
+            .error(function(data) {
+                console.log('Error: ' + data);
+                alert(data.result);
+            });
+    };
+
+    $scope.saveManager = function() {
+        $scope.addManagerFormData.role = "2";
+        $http.post($scope.ipaddress+'/addManager', $scope.addManagerFormData)
+            .success(function(data) {
+                $scope.addManagerFormData = {}; // clear the form so our user is ready to enter another
+                alert("Manager Saved");
+            })
+            .error(function(data) {
+                console.log('Error: ' + data);
+                alert(data.result);
+            });
+    };
+
+    $scope.updateCompany = function() {
+        $http.post($scope.ipaddress+'/webChangeCompanyName', $scope.companyProfileFormData)
+            .success(function(data){
+                $scope.companyProfileFormData = {};
+                alert(data.result);
             })
             .error(function(data) {
                 console.log('Error: ' + data);

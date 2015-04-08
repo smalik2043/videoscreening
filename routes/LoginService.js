@@ -10,6 +10,7 @@ var mongooseDBObjects = require('./MongooseDBObjects.js');
 var varEnumClass = require('./EnumClass.js');
 var EncryptDecryptPasswordClass = require('./EncryptDecryptPassword');
 var GenericAddUserClass = require('./GenericAddUsersClass');
+var sessionCompanyId;
 
 exports.testService = function(req,res) {
     res.set('Content-Type', 'application/json');
@@ -93,14 +94,18 @@ CreateLoginClass.prototype.createLoginMethod = (function (createLoginCallback){
 })(createLoginCallbackFunction);
 
 function createLoginCallbackFunction(req,res){
+    var ua = req.headers['user-agent'];
+    console.log("ua " + ua);
     res.set('Content-Type', 'application/json');
     var firstName = req.param('firstName');
     var lastName = req.param('lastName');
     var userName = req.param('userName');
     var password = req.param('password');
     var email = req.param('email');
-    var encryptPassword = new EncryptDecryptPasswordClass(req.param("password"));
-    var hashPassword = encryptPassword.encryptPasswordFunction();
+    if(typeof(password) != "undefined") {
+        var encryptPassword = new EncryptDecryptPasswordClass(req.param("password"));
+        var hashPassword = encryptPassword.encryptPasswordFunction();
+    }
     var role = req.param('role');
     var phoneNumber = typeof(req.param('phoneNumber')) == "undefined" ? "" : req.param('phoneNumber');
     var company = req.param('company');
@@ -108,8 +113,8 @@ function createLoginCallbackFunction(req,res){
     var createdBy = typeof(req.param('createdBy')) == "undefined" ? "" : req.param('createdBy');
 
     if(typeof(firstName) == "undefined" || typeof(lastName) == "undefined" ||  typeof(email) == "undefined"
-        || typeof(password) == "undefined" || typeof(company) == "undefined" || typeof (userName) == "undefined") {
-        res.status(400);
+        || typeof(password) == "undefined" || typeof (userName) == "undefined") {
+        res.status(404);
         res.json({result:"Mandatory parameter required"});
     } else {
         if(role == varEnumClass.role["Admin"]){
@@ -124,16 +129,31 @@ function createLoginCallbackFunction(req,res){
         } else if(role == varEnumClass.role["Manager"]) {
             /*res.json({id:createUserLogin._id,firstName:createUserLogin.firstName,lastName:createUserLogin.lastName,
             email:createUserLogin.email});*/
-            var genericAddUserClass = new GenericAddUserClass(firstName,lastName,userName,email,password,role,phoneNumber,company,createdBy,req,res);
-            genericAddUserClass.getCompany(createdBy,function(companyName){
-                if(companyName == false){
-                    res.json({result:"Created by id not found."});
-                } else {
-                    console.log("company name returned: " + companyName);
-                    //genericAddUserClass.companyName = companyName;
-                    genericAddUserClass.genericAddFunction(GenericAddUserClass.createGenericCallbackFunction,companyName);
-                }
-            });
+            if(/iOS/.test(ua) || /Android/.test(ua)){
+                var genericAddUserClass = new GenericAddUserClass(firstName,lastName,userName,email,password,role,phoneNumber,company,createdBy,req,res);
+                genericAddUserClass.getCompany(createdBy,function(companyName){
+                    if(companyName == false){
+                        res.json({result:"Created by id not found."});
+                    } else {
+                        console.log("company name returned: " + companyName);
+                        //genericAddUserClass.companyName = companyName;
+                        genericAddUserClass.genericAddFunction(GenericAddUserClass.createGenericCallbackFunction,companyName);
+                    }
+                });
+
+            } else {
+                createdBy = req.session.userId;
+                var genericAddUserClass = new GenericAddUserClass(firstName,lastName,userName,email,password,role,phoneNumber,company,createdBy,req,res);
+                genericAddUserClass.getCompany(createdBy,function(companyName){
+                    if(companyName == false){
+                        res.json({result:"Created by id not found."});
+                    } else {
+                        console.log("company name returned: " + companyName);
+                        //genericAddUserClass.companyName = companyName;
+                        genericAddUserClass.genericAddFunction(GenericAddUserClass.createGenericCallbackFunction,companyName);
+                    }
+                });
+            }
 
         } else if(role == varEnumClass.role["User"]) {
             /*res.json({id:createUserLogin._id,firstName:createUserLogin.firstName,lastName:createUserLogin.lastName,
@@ -149,7 +169,7 @@ function createLoginCallbackFunction(req,res){
                 }
             });
         } else {
-            res.status(400);
+            res.status(404);
             res.json({result:"Please specify the role either (1 or 2 or 3)."});
         }
     }
@@ -214,6 +234,10 @@ function loginCallbackFunction(req,res){
 
             mongooseDBObjects.var_video_screening_company_user.findOne({userId : userId},function(err,companyUser,count){
                 if(companyUser != "" && companyUser !=null){
+                    companyId = companyUser.companyId;
+                    req.session.companyId = companyId;
+                    req.session.userId = userId;
+                    sessionCompanyId = req.session.companyId;
                     res.status(200);
                     res.json({id:userId, userName : userName, email:email, firstName : firstName ,
                         lastName: lastName, role : role,companyId:companyUser.companyId,createdBy:createdBy});
@@ -421,3 +445,5 @@ ListUsersClass.prototype.listUsersFunction = function(req,res){
         res.json({result:"Please provide company Id."});
     }
 }
+
+exports.sessionCompanyId = sessionCompanyId;

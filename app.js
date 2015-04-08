@@ -10,6 +10,7 @@ var user = require('./routes/user');
 var loginService = require('./routes/LoginService');
 var interviewQuestionService = require('./routes/InterviewQuestionService');
 var resetPasswordClass = require('./routes/ResetPasswordClass');
+var companyClass = require('./routes/CompanyClass');
 var http = require('http');
 var path = require('path');
 
@@ -20,6 +21,7 @@ app.set('port', process.env.PORT || 3000);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 app.use(express.favicon());
+app.use(express.bodyParser());
 app.use(express.logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded());
@@ -63,6 +65,8 @@ app.post('/webViewLogin' , loginService.webViewLogin);
 app.get('/testService',loginService.testService);
 app.post('/resetPassword',resetPasswordClass.resetPasswordService);
 app.post('/saveAnswerVideo',interviewQuestionService.saveAnswerVideo);
+app.post('/changeCompanyName',companyClass.changeCompanyName);
+app.post('/webChangeCompanyName',companyClass.webChangeCompanyName);
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
 });

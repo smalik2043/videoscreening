@@ -1,18 +1,28 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="videoScreeningApp">
   <head>
     <meta charset="utf-8"> 
 <!--<meta name="viewport" content="width=device-width">-->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Untitled Document</title>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 <link href="stylesheets/css/mystyle.css" rel="stylesheet" type="text/css" />
 
 <!--<link href="css/responsive.css" rel="stylesheet" type="text/css" />-->
+              <style>
+                body { font-size: 62.5%; }
+                label, input { display:block; }
+                input.text { margin-bottom:12px; width:95%; padding: .4em; }
 
+                h1 { font-size: 1.2em; margin: .6em 0; }
+
+                .ui-dialog .ui-state-error { padding: .3em; }
+
+              </style>
 </head>
 
 
-<body>
+<body ng-controller="mainController">
 <div class="headerContainer">
 <div class="pull-left" style="width:250px; margin-left: 2%;">
                 <img src="images/appLogo.png">
@@ -42,20 +52,94 @@
     </div>-->
 </div>
 <div class="col-xs-12 col-md-3 bgColr" id="adminDropDown">
-        	<div class="manager pull-left borderBot">
+        	<div class="manager pull-left borderBot" style="cursor:pointer;" id="addManager">
             	<img class="pull-left" src="images/create-manager.jpg">
-                <span class="pull-left">Add Manager</span>
+                <span class="pull-left" >Add Manager</span>
             </div>
-            <div class="manager pull-left borderBot">
+            <div class="manager pull-left borderBot" style="cursor:pointer;" id="viewManagers">
             	<img class="pull-left" src="images/view-manager.jpg">
-                <span class="pull-left">View Managers</span>
+                <span class="pull-left" >View Managers</span>
             </div>
-            <div class="manager pull-left borderBot">
+            <div class="manager pull-left borderBot" style="cursor:pointer;" id="companyProfile">
             	<img class="pull-left" src="images/company-profile.jpg">
-                <span class="pull-left">Company Profile</span>
+                <span class="pull-left" >Company Profile</span>
             </div>
             
         </div>
+
+        <div class="myContainer" id="managerFormDiv" title = "Add Manager">
+
+        	<div class="mainArea">
+
+                <div class="col-xs-12 col-md-12">
+                	<div class="profileArea">
+                    	<h3>Create Manager Form</h3>
+       <form role="form" id="addManagerForm" name="addManagerForm">
+                   <div class="form-group">
+                        <div class="profileFields">
+                        <div class="companyName">
+                        <input type="text"  class="form-control" placeholder="First Name" ng-model="addManagerFormData.firstName"/>
+                        </div>
+                        <div class="companyName">
+                        <input type="text"  class="form-control" placeholder="Last Name" ng-model="addManagerFormData.lastName"/>
+                        </div>
+                        <div class="companyName">
+                        <input type="text"  class="form-control" placeholder="Username Name" ng-model="addManagerFormData.userName"/>
+                        </div>
+                        <div class="companyName">
+                        <input type="password"  class="form-control" placeholder="Password" ng-model="addManagerFormData.password"/>
+                        </div>
+                        <div class="companyName">
+                        <input type="text"  class="form-control" placeholder="Email" ng-model="addManagerFormData.email"/>
+                        </div>
+                             <!--<div class="dropdown">
+                            <button class="btn btn-default dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">Role
+                        <span class="caret"></span></button>
+                                <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">One</a></li>
+                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Two</a></li>
+                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Three</a></li>
+                                </ul>
+                            </div>-->
+                            <div class="companyName">
+
+                                <input type="submit" class=" btn btn-default proBtn" value="Save" ng-click="saveManager()"/>
+                            <input type="submit" class=" btn btn-default proBtn" value="Cancel" />
+                            </div>
+
+
+                    </div>
+                    </div>
+                    </form>
+                </div>
+            </div>
+            </div>
+
+        </div>
+
+
+        <div class="myContainer" id="companyProfileDiv" title = "Change Company Name">
+
+                	<div class="mainArea">
+
+                        <div class="col-xs-12 col-md-12">
+                        	<div class="profileArea">
+                            	<h3>Change Company name</h3>
+                             <form role="form" id="companyProfileForm" name="companyProfileForm">
+                               <div class="form-group">
+                                <div class="profileFields">
+                                    <input type="text"  class="" placeholder="Company Name" ng-model="companyProfileFormData.companyName"/>
+                                    <input type="hidden"  class="" ng-model="companyProfileFormData.companyId" id="hiddenCompanyId"/>
+                                    <input type="submit" class=" btn btn-default proBtn" value="Update" ng-click="updateCompany()"/>
+                                    <input type="submit" class=" btn btn-default proBtn" value="Cancel" />
+                                </div>
+                               </div>
+                            </form>
+                        </div>
+                    </div>
+                    </div>
+
+                </div>
 <link href="stylesheets/css/bootstrap-responsive.css" rel="stylesheet" type="text/css" />
 <link href="stylesheets/css/bootstrap.icon-large.css" rel="stylesheet" type="text/css" />
 <link href="stylesheets/css/bootstrap.icon-large.min.css" rel="stylesheet" type="text/css" />
@@ -63,7 +147,12 @@
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
   <script src="/javascripts/jquery-1.9.1.js"></script>
   <script src="/javascripts/jquery-ui-1.10.3.js"></script>
+  <script src="/javascripts/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.14/angular-route.js"></script>
+    <script src="/javascripts/config.js"></script>
+    <script src="/javascripts/service.js"></script>
   <script src="/javascripts/utility.js"></script>
+
   <link href="stylesheets/css/mystyle.css" rel="stylesheet" type="text/css" />
 </body>
 </html>
