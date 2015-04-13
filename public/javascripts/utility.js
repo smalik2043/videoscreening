@@ -45,4 +45,8 @@ $(document).ready(function() {
     $('#companyProfile').click(function(){
         $('#companyProfileDiv').dialog('open');
     });
+
+    $('#viewManagers').click(function(){
+        window.open(config.ipaddress+'/viewManagers', '_self');
+    });
 })

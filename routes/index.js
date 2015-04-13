@@ -8,9 +8,13 @@ exports.index = function(req, res){
 };
 
 exports.signup = function(req, res){
-    res.render('signup', { title: 'VideoScreening-Signup' });
+    res.render('signup', { title: 'VideoScreening - Signup' });
 };
 
 exports.adminDashboard = function(req, res){
-    res.render('adminDashboard', { title: 'VideoScreening-Signup' });
+    res.render('adminDashboard', { title: 'VideoScreening - Admin Dashboard' });
+};
+
+exports.viewManagers = function(req,res){
+   res.render('viewManagers', {title: 'VideoScreening - View Managers'});
 };

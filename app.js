@@ -40,6 +40,7 @@ app.get('/', routes.index);
 app.get('/users', user.list);
 app.get('/signup',routes.signup);
 app.get('/adminDashboard',routes.adminDashboard);
+app.get('/viewManagers',routes.viewManagers);
 
 //Create Login//
 app.post('/createAdmin' , loginService.createLogin);
@@ -53,6 +54,7 @@ app.put('/editUser',loginService.editUser);
 app.put('/deleteManager',loginService.deleteManager);
 app.put('/deleteUser',loginService.deleteUser);
 app.get('/listManagers',loginService.listManagers);
+app.get('/listManagersWeb',loginService.listManagersWeb);
 app.get('/listUsers',loginService.listUsers);
 app.post('/createInterview',interviewQuestionService.createInterview);
 app.post('/addQuestion',interviewQuestionService.addQuestion);

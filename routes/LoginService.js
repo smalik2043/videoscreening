@@ -73,6 +73,11 @@ exports.listManagers = function(req,res){
     listManagersClass.listManagersFunction(req,res);
 }
 
+exports.listManagersWeb = function(req,res){
+    var listManagersWebClass = new ListManagersClass();
+    listManagersWebClass.listManagersWebFunction(req,res);
+}
+
 exports.listUsers = function(req,res){
     var listUsersClass = new ListUsersClass();
     listUsersClass.listUsersFunction(req,res);
@@ -382,6 +387,7 @@ ListManagersClass.prototype.listManagersFunction = function(req,res){
                             jsonManagers["id"] = usersLoop._id;
                             jsonManagers["firstName"] = usersLoop.firstName;
                             jsonManagers["lastName"] = usersLoop.lastName;
+                            jsonManagers["userName"] = usersLoop.userName;
                             jsonManagers["email"] =  usersLoop.email;
                             jsonManagers["company"] = companyName;
                             jsonManagerArray.push(jsonManagers);
@@ -427,6 +433,7 @@ ListUsersClass.prototype.listUsersFunction = function(req,res){
                             jsonUsers["id"] = usersLoop._id;
                             jsonUsers["firstName"] = usersLoop.firstName;
                             jsonUsers["lastName"] = usersLoop.lastName;
+                            jsonUsers["userName"] = usersLoop.userName;
                             jsonUsers["email"] =  usersLoop.email;
                             jsonUsers["company"] = companyName;
                             jsonUsersArray.push(jsonUsers);
@@ -436,6 +443,50 @@ ListUsersClass.prototype.listUsersFunction = function(req,res){
                     });
                 });
             }  else {
+                res.status(404);
+                res.json({result:"No company found against the given id."});
+            }
+        });
+    } else {
+        res.status(404);
+        res.json({result:"Please provide company Id."});
+    }
+}
+
+ListManagersClass.prototype.listManagersWebFunction = function(req,res){
+    var jsonManagerArray = [];
+    var jsonUserIds = [];
+    var jsonManagers = {};
+    var companyId = req.session.companyId;
+    var companyName;
+    if(companyId != null && companyId != "" && typeof(companyId) != "undefined"){
+        mongooseDBObjects.var_video_screening_company_user.find({companyId:companyId,role:2},function(err,companyUser,count){
+            if(err) throw err;
+            console.log("companyUser: " + companyUser);
+            if(companyUser != "" && companyUser != null){
+                companyUser.forEach(function(companyUserLoop){
+                    jsonUserIds.push(companyUserLoop.userId);
+                });
+                mongooseDBObjects.var_video_screening_company.findOne({_id:companyId},function(err,company,count){
+                    if(err) throw err;
+                    companyName = company.companyName;
+
+                    mongooseDBObjects.var_video_screening_createLogin.find({_id:{$in:jsonUserIds}},function(err,users,count){
+                        if(err) throw err;
+                        users.forEach(function(usersLoop){
+                            jsonManagers["id"] = usersLoop._id;
+                            jsonManagers["firstName"] = usersLoop.firstName;
+                            jsonManagers["lastName"] = usersLoop.lastName;
+                            jsonManagers["userName"] = usersLoop.userName;
+                            jsonManagers["email"] =  usersLoop.email;
+                            jsonManagers["company"] = companyName;
+                            jsonManagerArray.push(jsonManagers);
+                            jsonManagers = {};
+                        });
+                        res.json(jsonManagerArray);
+                    });
+                });
+            } else {
                 res.status(404);
                 res.json({result:"No company found against the given id."});
             }

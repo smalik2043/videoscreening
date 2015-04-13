@@ -45,7 +45,6 @@ exports.webChangeCompanyName = function(req,res){
                 res.json({result:"companyUpdated"});
             });
         }
-        console.log("company_name " + company_name);
         res.status(200);
         res.json({result: "Company name updated."});
     });
