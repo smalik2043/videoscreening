@@ -30,7 +30,13 @@ exports.createInterview = function(req,res){
     res.set('Content-Type', 'application/json');
     var interviewName = req.param("interviewName");
     var createdById = req.param("createdById");
-
+    if(createdById == null || typeof(createdById) == "undefined" || createdById == ""){
+        res.status(404);
+        res.send("Please enter createdById");
+    } else if(interviewName == null || typeof(interviewName) == "undefined" || interviewName == ""){
+        res.status(404);
+        res.send("Please enter interviewName");
+    } else {
     new mongooseDBObjects.var_video_screening_interview({
         interviewName : interviewName,
         createdBy : createdById,
@@ -42,6 +48,7 @@ exports.createInterview = function(req,res){
             res.status(200);
             res.json({id:interview._id,interviewName:interview.interviewName,createdBy:interview.createdBy})
         });
+    }
 }
 
 exports.addQuestion = function(req,res){
@@ -50,6 +57,16 @@ exports.addQuestion = function(req,res){
     var question = req.param("question");
     var createdById = req.param("createdById");
 
+    if(createdById == null || typeof(createdById) == "undefined" || createdById == ""){
+        res.status(404);
+        res.send("Please enter createdById");
+    } else if(interviewId == null || typeof(interviewId) == "undefined" || interviewId == ""){
+        res.status(404);
+        res.send("Please enter interviewId");
+    } else if(question == null || typeof(question) == "undefined" || question == "") {
+        res.status(404);
+        res.send("Please enter question");
+    } else {
     new mongooseDBObjects.var_video_screening_question({
         interviewId : interviewId,
         question : question,
@@ -62,6 +79,7 @@ exports.addQuestion = function(req,res){
             res.status(200);
             res.json({id:question._id,interviewId:question.interviewId,question:question.question,createdBy:question.createdBy});
         });
+    }
 }
 
 exports.editQuestion = function(req,res){
@@ -249,6 +267,10 @@ exports.interviewsCreatedByManager = function(req,res) {
     var questionArrayList = [];
     var usersArrayList = [];
     console.log("managerId: " + managerId);
+    if(managerId == null || typeof(managerId) == "undefined" || managerId == ""){
+        res.status(404);
+        res.send("Please enter managerId");
+    } else {
     mongooseDBObjects.var_video_screening_interview.find({createdBy:managerId},function(err,interview,count){
         if(interview != "" && interview != null){
             interview.forEach(function(interviewLoop){
@@ -308,6 +330,7 @@ exports.interviewsCreatedByManager = function(req,res) {
 
         });
     });
+    }
 }
 
 //exports.fileUpload = function(req,res){
