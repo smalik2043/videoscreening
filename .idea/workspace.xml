@@ -2,19 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b5c71ad4-273c-4cd3-8286-58fa98944efc" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/routes/CompanyClass.js" afterPath="$PROJECT_DIR$/routes/CompanyClass.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/routes/InterviewQuestionService.js" afterPath="$PROJECT_DIR$/routes/InterviewQuestionService.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/routes/LoginService.js" afterPath="$PROJECT_DIR$/routes/LoginService.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app.js" afterPath="$PROJECT_DIR$/app.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/routes/db.js" afterPath="$PROJECT_DIR$/routes/db.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/routes/index.js" afterPath="$PROJECT_DIR$/routes/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/javascripts/utility.js" afterPath="$PROJECT_DIR$/public/javascripts/utility.js" />
     </list>
     <ignored path="VideoScreening.iws" />
     <ignored path=".idea/workspace.xml" />
-    <file path="/db.js" changelist="b5c71ad4-273c-4cd3-8286-58fa98944efc" time="1427227770483" ignored="false" />
+    <file path="/db.js" changelist="b5c71ad4-273c-4cd3-8286-58fa98944efc" time="1429113817713" ignored="false" />
     <file path="$PROJECT_DIR$/../WebTravelAPP/routes/db.js" changelist="b5c71ad4-273c-4cd3-8286-58fa98944efc" time="1421350711350" ignored="false" />
     <file path="/MongooseDBObjects.js" changelist="b5c71ad4-273c-4cd3-8286-58fa98944efc" time="1427227399324" ignored="false" />
-    <file path="/app.js" changelist="b5c71ad4-273c-4cd3-8286-58fa98944efc" time="1428848254811" ignored="false" />
+    <file path="/app.js" changelist="b5c71ad4-273c-4cd3-8286-58fa98944efc" time="1429300377771" ignored="false" />
     <file path="/LoginService.js" changelist="b5c71ad4-273c-4cd3-8286-58fa98944efc" time="1428849497855" ignored="false" />
     <file path="/EnumClass.js" changelist="b5c71ad4-273c-4cd3-8286-58fa98944efc" time="1421692502609" ignored="false" />
     <file path="$PROJECT_DIR$/../WebTravelAPP/routes/LogTravelClass.js" changelist="b5c71ad4-273c-4cd3-8286-58fa98944efc" time="1422090038861" ignored="false" />
@@ -22,8 +20,8 @@
     <file path="/GenericAddUsersClass.js" changelist="b5c71ad4-273c-4cd3-8286-58fa98944efc" time="1424810203147" ignored="false" />
     <file path="/HiringManager.js" changelist="b5c71ad4-273c-4cd3-8286-58fa98944efc" time="1422653092853" ignored="false" />
     <file path="/fragment.js" changelist="b5c71ad4-273c-4cd3-8286-58fa98944efc" time="1422991216582" ignored="false" />
-    <file path="/InterviewQuestionService.js" changelist="b5c71ad4-273c-4cd3-8286-58fa98944efc" time="1427302229739" ignored="false" />
-    <file path="/index.js" changelist="b5c71ad4-273c-4cd3-8286-58fa98944efc" time="1428588159101" ignored="false" />
+    <file path="/InterviewQuestionService.js" changelist="b5c71ad4-273c-4cd3-8286-58fa98944efc" time="1429301522700" ignored="false" />
+    <file path="/index.js" changelist="b5c71ad4-273c-4cd3-8286-58fa98944efc" time="1429018909037" ignored="false" />
     <file path="/MailerClass.js" changelist="b5c71ad4-273c-4cd3-8286-58fa98944efc" time="1423681503863" ignored="false" />
     <file path="$PROJECT_DIR$/../WebTravelAPP/routes/MailerClass.js" changelist="b5c71ad4-273c-4cd3-8286-58fa98944efc" time="1423681324255" ignored="false" />
     <file path="/a.dummy" changelist="b5c71ad4-273c-4cd3-8286-58fa98944efc" time="1428502644931" ignored="false" />
@@ -31,7 +29,7 @@
     <file path="/login.ejs" changelist="b5c71ad4-273c-4cd3-8286-58fa98944efc" time="1425800683699" ignored="false" />
     <file path="/style.css" changelist="b5c71ad4-273c-4cd3-8286-58fa98944efc" time="1424894285593" ignored="false" />
     <file path="/loginJS.js" changelist="b5c71ad4-273c-4cd3-8286-58fa98944efc" time="1425118288258" ignored="false" />
-    <file path="/Dummy.txt" changelist="b5c71ad4-273c-4cd3-8286-58fa98944efc" time="1427739045499" ignored="false" />
+    <file path="/Dummy.txt" changelist="b5c71ad4-273c-4cd3-8286-58fa98944efc" time="1429217920123" ignored="false" />
     <file path="$PROJECT_DIR$/../Eventmost project/eventmost/node_modules/knox/node_modules/xml2js/canon.xml" changelist="b5c71ad4-273c-4cd3-8286-58fa98944efc" time="1425069338442" ignored="false" />
     <file path="$PROJECT_DIR$/../Eventmost project/eventmost/node_modules/knox/node_modules/xml2js/node_modules/sax/examples/test.xml" changelist="b5c71ad4-273c-4cd3-8286-58fa98944efc" time="1425069338442" ignored="false" />
     <file path="$PROJECT_DIR$/../Eventmost project/eventmost/node_modules/knox/node_modules/xml2js/text.xml" changelist="b5c71ad4-273c-4cd3-8286-58fa98944efc" time="1425069338442" ignored="false" />
@@ -65,7 +63,7 @@
     <file path="/ResetPasswordClass.js" changelist="b5c71ad4-273c-4cd3-8286-58fa98944efc" time="1426528411038" ignored="false" />
     <file path="$PROJECT_DIR$/../Eventmost project/eventmost/routes/ws/apiroutes/apiinbox/apicards.js" changelist="b5c71ad4-273c-4cd3-8286-58fa98944efc" time="1427211352395" ignored="false" />
     <file path="$PROJECT_DIR$/../Eventmost project/eventmost/routes/ws/apiroutes/apicards.js" changelist="b5c71ad4-273c-4cd3-8286-58fa98944efc" time="1427535607733" ignored="false" />
-    <file path="$PROJECT_DIR$/../Eventmost project/eventmost/public/js/signin.js" changelist="b5c71ad4-273c-4cd3-8286-58fa98944efc" time="1428529082614" ignored="false" />
+    <file path="$PROJECT_DIR$/../Eventmost project/eventmost/public/js/signin.js" changelist="b5c71ad4-273c-4cd3-8286-58fa98944efc" time="1429199296404" ignored="false" />
     <file path="$PROJECT_DIR$/../Eventmost project/eventmost/routes/cards.js" changelist="b5c71ad4-273c-4cd3-8286-58fa98944efc" time="1427739712571" ignored="false" />
     <file path="$PROJECT_DIR$/../Eventmost project/eventmost/views/responsive.jade" changelist="b5c71ad4-273c-4cd3-8286-58fa98944efc" time="1427749814751" ignored="false" />
     <file path="/responsive.jade" changelist="b5c71ad4-273c-4cd3-8286-58fa98944efc" time="1427749669007" ignored="false" />
@@ -78,10 +76,15 @@
     <file path="/CompanyClass.js" changelist="b5c71ad4-273c-4cd3-8286-58fa98944efc" time="1428519356429" ignored="false" />
     <file path="D:/Nodejs Projects/WebTravelAPP/routes/CompanyEmployeeClass.js" changelist="b5c71ad4-273c-4cd3-8286-58fa98944efc" time="1428419366969" ignored="false" />
     <file path="/CompanyEmployeeClass.js" changelist="b5c71ad4-273c-4cd3-8286-58fa98944efc" time="1428419360229" ignored="false" />
-    <file path="$PROJECT_DIR$/../Eventmost project/eventmost/public/js/landingpage.js" changelist="b5c71ad4-273c-4cd3-8286-58fa98944efc" time="1428423206847" ignored="false" />
+    <file path="$PROJECT_DIR$/../Eventmost project/eventmost/public/js/landingpage.js" changelist="b5c71ad4-273c-4cd3-8286-58fa98944efc" time="1429203285347" ignored="false" />
     <file path="/viewManagers.ejs" changelist="b5c71ad4-273c-4cd3-8286-58fa98944efc" time="1428850344882" ignored="false" />
     <file path="D:/Nodejs Projects/WebTravelAPP/routes/UserProfileResetPasswordClass.js" changelist="b5c71ad4-273c-4cd3-8286-58fa98944efc" time="1428935747523" ignored="false" />
     <file path="/viewManagerJS.js" changelist="b5c71ad4-273c-4cd3-8286-58fa98944efc" time="1428850108151" ignored="false" />
+    <file path="/uploadVideo.html" changelist="b5c71ad4-273c-4cd3-8286-58fa98944efc" time="1429018855687" ignored="false" />
+    <file path="/uploadVideo.ejs" changelist="b5c71ad4-273c-4cd3-8286-58fa98944efc" time="1429040596857" ignored="false" />
+    <file path="$PROJECT_DIR$/../Eventmost project/eventmost/public/js/angular-landingEvents.js" changelist="b5c71ad4-273c-4cd3-8286-58fa98944efc" time="1429199296404" ignored="false" />
+    <file path="$PROJECT_DIR$/../Eventmost project/eventmost/public/js/cardcreator.js" changelist="b5c71ad4-273c-4cd3-8286-58fa98944efc" time="1429199296404" ignored="false" />
+    <file path="$PROJECT_DIR$/../Eventmost project/eventmost/public/js/eventLandingPage.js" changelist="b5c71ad4-273c-4cd3-8286-58fa98944efc" time="1429199296404" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -110,33 +113,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="viewManagerJS.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/public/javascripts/viewManagerJS.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="32" column="39" selection-start="1133" selection-end="1133" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="service.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/public/javascripts/service.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="27" column="39" selection-start="878" selection-end="887" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="app.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="56" column="25" selection-start="1844" selection-end="1859" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="LoginService.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/routes/LoginService.js">
           <provider selected="true" editor-type-id="text-editor">
@@ -146,39 +122,55 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CompanyClass.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/routes/CompanyClass.js">
+      <file leaf-file-name="uploadVideo.ejs" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/views/uploadVideo.ejs">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="48" column="47" selection-start="2058" selection-end="2065" vertical-scroll-proportion="0.0">
-              <folding>
-                <element signature="e#0#159#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="viewManagers.ejs" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/views/viewManagers.ejs">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="71" column="30" selection-start="3266" selection-end="3266" vertical-scroll-proportion="-10.461538">
+            <state line="6" column="74" selection-start="139" selection-end="139" vertical-scroll-proportion="-3.9230769">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Configuration.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/routes/Configuration.js">
+      <file leaf-file-name="signup.ejs" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/views/signup.ejs">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="8" column="2" selection-start="165" selection-end="165" vertical-scroll-proportion="0.0">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="config.js" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="index.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/routes/index.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="21" column="8" selection-start="488" selection-end="488" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="app.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="73" column="2" selection-start="2923" selection-end="2923" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="config.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/javascripts/config.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="9" column="4" selection-start="181" selection-end="181" vertical-scroll-proportion="0.27818182">
+            <state line="9" column="4" selection-start="181" selection-end="181" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Configuration.js" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/routes/Configuration.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="8" column="2" selection-start="165" selection-end="165" vertical-scroll-proportion="0.26881722">
               <folding />
             </state>
           </provider>
@@ -187,7 +179,16 @@
       <file leaf-file-name="InterviewQuestionService.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/routes/InterviewQuestionService.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="264" column="36" selection-start="15143" selection-end="15163" vertical-scroll-proportion="0.0">
+            <state line="427" column="3" selection-start="14535" selection-end="22210" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="db.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/routes/db.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="85" column="26" selection-start="2355" selection-end="2355" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -211,22 +212,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/routes/ResetPasswordClass.js" />
-        <option value="$PROJECT_DIR$/routes/MongooseDBObjects.js" />
-        <option value="$PROJECT_DIR$/routes/db.js" />
         <option value="$PROJECT_DIR$/views/adminDashboard.ejs" />
         <option value="$PROJECT_DIR$/public/javascripts/service.js" />
         <option value="$PROJECT_DIR$/routes/CompanyClass.js" />
         <option value="$PROJECT_DIR$/views/viewManagers.html" />
-        <option value="$PROJECT_DIR$/routes/index.js" />
-        <option value="$PROJECT_DIR$/routes/InterviewQuestionService.js" />
-        <option value="$PROJECT_DIR$/app.js" />
         <option value="$PROJECT_DIR$/routes/LoginService.js" />
         <option value="$PROJECT_DIR$/views/viewManagers.ejs" />
         <option value="$PROJECT_DIR$/public/javascripts/viewManagerJS.js" />
         <option value="$PROJECT_DIR$/public/javascripts/utility.js" />
-        <option value="$PROJECT_DIR$/routes/Configuration.js" />
+        <option value="$PROJECT_DIR$/views/uploadVideo.html" />
+        <option value="$PROJECT_DIR$/routes/index.js" />
+        <option value="$PROJECT_DIR$/views/uploadVideo.ejs" />
+        <option value="$PROJECT_DIR$/routes/db.js" />
+        <option value="$PROJECT_DIR$/routes/InterviewQuestionService.js" />
+        <option value="$PROJECT_DIR$/app.js" />
         <option value="$PROJECT_DIR$/public/javascripts/config.js" />
+        <option value="$PROJECT_DIR$/routes/Configuration.js" />
       </list>
     </option>
   </component>
@@ -504,11 +505,11 @@
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32890365" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32998326" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25018615" sideWeight="0.68844223" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.400335" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25018615" sideWeight="0.70184255" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33668342" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32890365" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3115578" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.29815745" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -596,78 +597,13 @@
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="126" />
+      <option name="time" value="129" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/routes/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="17" column="8" selection-start="368" selection-end="368" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/javascripts/jquery.dataTables.min.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/stylesheets/jquery.dataTables_themeroller.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="23" selection-start="138" selection-end="138" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/adminDashboard.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="150" column="101" selection-start="7606" selection-end="7759" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/stylesheets/css/style.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/stylesheets/css/mystyle.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routes/CompanyClass.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="48" column="47" selection-start="2058" selection-end="2065" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="e#0#159#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="56" column="25" selection-start="1844" selection-end="1859" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/javascripts/service.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="27" column="39" selection-start="878" selection-end="887" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routes/LoginService.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="389" column="50" selection-start="16703" selection-end="16703" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
@@ -679,20 +615,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/javascripts/utility.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="50" column="7" selection-start="1193" selection-end="1193" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routes/InterviewQuestionService.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="264" column="36" selection-start="15143" selection-end="15163" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/views/viewManagers.ejs">
       <provider selected="true" editor-type-id="text-editor">
         <state line="71" column="30" selection-start="3266" selection-end="3266" vertical-scroll-proportion="-10.461538">
@@ -700,16 +622,93 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/routes/Configuration.js">
+    <entry file="file://$PROJECT_DIR$/views/signup.ejs">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="2" selection-start="165" selection-end="165" vertical-scroll-proportion="0.0">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="21" column="8" selection-start="488" selection-end="488" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/javascripts/utility.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="50" column="7" selection-start="1193" selection-end="1193" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/LoginService.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="389" column="50" selection-start="16703" selection-end="16703" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/uploadVideo.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="6" column="74" selection-start="139" selection-end="139" vertical-scroll-proportion="-3.9230769">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/db.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="85" column="26" selection-start="2355" selection-end="2355" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/.WebStorm6/system/extLibs/nodejs-v0.10.31-src/core-modules-sources/lib/console.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="52" column="15" selection-start="1960" selection-end="1960" vertical-scroll-proportion="0.33240223">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/.WebStorm6/system/extLibs/nodejs-v0.10.31-src/core-modules-sources/lib/_stream_readable.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="944" column="0" selection-start="26498" selection-end="26498" vertical-scroll-proportion="0.5080386">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/.WebStorm6/system/extLibs/nodejs-v0.10.31-src/core-modules-sources/lib/events.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="123" column="0" selection-start="3989" selection-end="3989" vertical-scroll-proportion="0.31024095">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/InterviewQuestionService.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="427" column="3" selection-start="14535" selection-end="22210" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="73" column="2" selection-start="2923" selection-end="2923" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/public/javascripts/config.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="4" selection-start="181" selection-end="181" vertical-scroll-proportion="0.27818182">
+        <state line="9" column="4" selection-start="181" selection-end="181" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/Configuration.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="8" column="2" selection-start="165" selection-end="165" vertical-scroll-proportion="0.26881722">
           <folding />
         </state>
       </provider>

@@ -21,7 +21,7 @@ app.set('port', process.env.PORT || 3000);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 app.use(express.favicon());
-app.use(express.bodyParser());
+//app.use(express.bodyParser());
 app.use(express.logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded());
@@ -41,6 +41,7 @@ app.get('/users', user.list);
 app.get('/signup',routes.signup);
 app.get('/adminDashboard',routes.adminDashboard);
 app.get('/viewManagers',routes.viewManagers);
+app.get('/uploadVideo',routes.uploadVideo);
 
 //Create Login//
 app.post('/createAdmin' , loginService.createLogin);
@@ -66,9 +67,12 @@ app.get('/listInterviews',interviewQuestionService.listInterviews);
 app.post('/webViewLogin' , loginService.webViewLogin);
 app.get('/testService',loginService.testService);
 app.post('/resetPassword',resetPasswordClass.resetPasswordService);
-app.post('/saveAnswerVideo',interviewQuestionService.saveAnswerVideo);
+//app.post('/saveAnswerVideo',interviewQuestionService.saveAnswerVideo);
 app.post('/changeCompanyName',companyClass.changeCompanyName);
 app.post('/webChangeCompanyName',companyClass.webChangeCompanyName);
+//app.post('/fileUpload',interviewQuestionService.fileUpload);
+//app.post('/receiveStoredAnswerVideo',interviewQuestionService.receiveStoredAnswerVideo);
+app.post('/interviewsCreatedByManager',interviewQuestionService.interviewsCreatedByManager);
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
 });

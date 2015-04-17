@@ -18,3 +18,7 @@ exports.adminDashboard = function(req, res){
 exports.viewManagers = function(req,res){
    res.render('viewManagers', {title: 'VideoScreening - View Managers'});
 };
+
+exports.uploadVideo = function(req,res){
+    res.render('uploadVideo', {title: 'VideoScreening - Upload Video'});
+};

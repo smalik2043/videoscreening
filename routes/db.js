@@ -82,7 +82,8 @@ var video_screening_candidates_answers = new videoScreeningSchema({
     interviewId : String,
     questionId : String,
     userId : String,
-    videoAnswerId : Object,
+    fileName : String,
+    videoAnswerId : String,
     lastUpdatedTimeStamp : Date,
     lastUpdatedBy : String
 });
