@@ -84,6 +84,7 @@ var video_screening_candidates_answers = new videoScreeningSchema({
     userId : String,
     fileName : String,
     videoAnswerId : String,
+    fileSize : String,
     lastUpdatedTimeStamp : Date,
     lastUpdatedBy : String
 });
@@ -102,3 +103,5 @@ videoScreeningDB.connect(configFile.dbAddress, function (err, db) {
         console.log("successfully connected to the database videoScreening");
     }
 });
+
+module.exports.dbConnection = videoScreeningDB.connection;

@@ -17,7 +17,7 @@ var path = require('path');
 var app = express();
 
 // all environments
-app.set('port', process.env.PORT || 3000);
+app.set('port', process.env.PORT || 3001);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 app.use(express.favicon());
@@ -67,12 +67,13 @@ app.get('/listInterviews',interviewQuestionService.listInterviews);
 app.post('/webViewLogin' , loginService.webViewLogin);
 app.get('/testService',loginService.testService);
 app.post('/resetPassword',resetPasswordClass.resetPasswordService);
-//app.post('/saveAnswerVideo',interviewQuestionService.saveAnswerVideo);
+app.post('/saveAnswerVideo',interviewQuestionService.saveAnswerVideo);
 app.post('/changeCompanyName',companyClass.changeCompanyName);
 app.post('/webChangeCompanyName',companyClass.webChangeCompanyName);
-//app.post('/fileUpload',interviewQuestionService.fileUpload);
-//app.post('/receiveStoredAnswerVideo',interviewQuestionService.receiveStoredAnswerVideo);
+app.post('/fileUpload',interviewQuestionService.fileUpload);
+app.post('/watchInterview',interviewQuestionService.receiveStoredAnswerVideo);
 app.post('/interviewsCreatedByManager',interviewQuestionService.interviewsCreatedByManager);
+app.post('/convertVideo',interviewQuestionService.convertVideo);
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
 });

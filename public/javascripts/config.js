@@ -8,5 +8,5 @@
 
 var config = {
     ipaddress: 'http://178.62.121.119:3000'
-    //ipaddress: 'http://localhost:3000'
+    //ipaddress: 'http://localhost:3001'
 }
