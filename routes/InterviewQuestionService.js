@@ -502,7 +502,7 @@ function convertVideoMovToMp4(videoPath,callback) {
         .withSize('50%')
 // set fps
         .withFps(24)
-        //.videoCodec('libx264')
+        .videoCodec('libx264')
 // set output format to force
         .toFormat('mp4')
 // setup event handlers
