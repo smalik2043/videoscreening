@@ -129,10 +129,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="app.js" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="app.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="76" column="0" selection-start="3154" selection-end="3154" vertical-scroll-proportion="0.0">
+            <state line="26" column="48" selection-start="783" selection-end="783" vertical-scroll-proportion="0.8355795">
               <folding />
             </state>
           </provider>
@@ -147,10 +147,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Configuration.js" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="Configuration.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/routes/Configuration.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="8" column="2" selection-start="165" selection-end="165" vertical-scroll-proportion="0.26684636">
+            <state line="8" column="2" selection-start="165" selection-end="165" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -213,10 +213,10 @@
         <option value="$PROJECT_DIR$/routes/index.js" />
         <option value="$PROJECT_DIR$/views/uploadVideo.ejs" />
         <option value="$PROJECT_DIR$/routes/db.js" />
-        <option value="$PROJECT_DIR$/app.js" />
         <option value="$PROJECT_DIR$/routes/InterviewQuestionService.js" />
         <option value="$PROJECT_DIR$/public/javascripts/config.js" />
         <option value="$PROJECT_DIR$/routes/Configuration.js" />
+        <option value="$PROJECT_DIR$/app.js" />
       </list>
     </option>
   </component>
@@ -566,13 +566,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="76" column="0" selection-start="3154" selection-end="3154" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/routes/InterviewQuestionService.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="609" column="41" selection-start="29569" selection-end="29569" vertical-scroll-proportion="0.0">
@@ -589,7 +582,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/routes/Configuration.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="2" selection-start="165" selection-end="165" vertical-scroll-proportion="0.26684636">
+        <state line="8" column="2" selection-start="165" selection-end="165" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="26" column="48" selection-start="783" selection-end="783" vertical-scroll-proportion="0.8355795">
           <folding />
         </state>
       </provider>
