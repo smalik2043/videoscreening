@@ -510,8 +510,10 @@ function convertVideoMovToMp4(videoPath,callback) {
             console.log('file has been converted successfully');
             callback(newVideoPath);
         })
-        .on('error', function(err) {
+        .on('error', function(err, stdout, stderr) {
             console.log('an error happened: ' + err.message);
+            console.log('ffmpeg stdout: ' + stdout);
+            console.log('ffmpeg stderr: ' + stderr);
         })
 // save to file <-- the new file I want -->
         .saveToFile(newVideoPath);
@@ -597,7 +599,7 @@ exports.receiveStoredAnswerVideo = function(req,res){
     var fileId = req.param('fileId');
     var output = '';
     var fileName;
-    var io = require('socket.io')(3001);
+    //var io = require('socket.io')(3001);
     Grid.mongo = mongoose.mongo;
     //db.open(function(err){
         var gfs = Grid(conn.db);
