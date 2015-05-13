@@ -502,7 +502,7 @@ function convertVideoMovToMp4(videoPath,callback) {
         .withSize('50%')
 // set fps
         .withFps(24)
-        .videoCodec('libx264')
+        //.videoCodec('libx264')
 // set output format to force
         .toFormat('mp4')
 // setup event handlers
@@ -510,10 +510,8 @@ function convertVideoMovToMp4(videoPath,callback) {
             console.log('file has been converted successfully');
             callback(newVideoPath);
         })
-        .on('error', function(err, stdout, stderr) {
+        .on('error', function(err) {
             console.log('an error happened: ' + err.message);
-            console.log('ffmpeg stdout: ' + stdout);
-            console.log('ffmpeg stderr: ' + stderr);
         })
 // save to file <-- the new file I want -->
         .saveToFile(newVideoPath);
