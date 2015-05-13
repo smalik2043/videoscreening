@@ -494,7 +494,7 @@ function convertVideoMovToMp4(videoPath,callback) {
         console.dir(metadata);
     });
 //Set the path to where FFmpeg is installed
-    proc.setFfmpegPath("/usr/bin/ffmpeg/ffmpeg"); //I forgot to include "ffmpeg.exe"
+    proc.setFfmpegPath("/usr/bin/ffmpeg"); //I forgot to include "ffmpeg.exe"
 
     proc
 //set the size
@@ -564,7 +564,7 @@ function convertVideoMp4toMov(videoPath,callback){
         console.dir(metadata);
     });
 //Set the path to where FFmpeg is installed
-    proc.setFfmpegPath("/usr/bin/ffmpeg/ffmpeg"); //I forgot to include "ffmpeg.exe"
+    proc.setFfmpegPath("/usr/bin/ffmpeg"); //I forgot to include "ffmpeg.exe"
 
     proc
 //set the size
