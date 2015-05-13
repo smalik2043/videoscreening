@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="b5c71ad4-273c-4cd3-8286-58fa98944efc" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/routes/InterviewQuestionService.js" afterPath="$PROJECT_DIR$/routes/InterviewQuestionService.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="VideoScreening.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -18,7 +17,7 @@
     <file path="/GenericAddUsersClass.js" changelist="b5c71ad4-273c-4cd3-8286-58fa98944efc" time="1424810203147" ignored="false" />
     <file path="/HiringManager.js" changelist="b5c71ad4-273c-4cd3-8286-58fa98944efc" time="1422653092853" ignored="false" />
     <file path="/fragment.js" changelist="b5c71ad4-273c-4cd3-8286-58fa98944efc" time="1422991216582" ignored="false" />
-    <file path="/InterviewQuestionService.js" changelist="b5c71ad4-273c-4cd3-8286-58fa98944efc" time="1431514578349" ignored="false" />
+    <file path="/InterviewQuestionService.js" changelist="b5c71ad4-273c-4cd3-8286-58fa98944efc" time="1431539977397" ignored="false" />
     <file path="/index.js" changelist="b5c71ad4-273c-4cd3-8286-58fa98944efc" time="1429018909037" ignored="false" />
     <file path="/MailerClass.js" changelist="b5c71ad4-273c-4cd3-8286-58fa98944efc" time="1423681503863" ignored="false" />
     <file path="$PROJECT_DIR$/../WebTravelAPP/routes/MailerClass.js" changelist="b5c71ad4-273c-4cd3-8286-58fa98944efc" time="1423681324255" ignored="false" />
@@ -155,7 +154,7 @@
       <file leaf-file-name="InterviewQuestionService.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/routes/InterviewQuestionService.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="496" column="39" selection-start="25817" selection-end="25817" vertical-scroll-proportion="0.5726257">
+            <state line="427" column="58" selection-start="22596" selection-end="22596" vertical-scroll-proportion="0.33240223">
               <folding />
             </state>
           </provider>
@@ -585,7 +584,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/routes/InterviewQuestionService.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="496" column="39" selection-start="25817" selection-end="25817" vertical-scroll-proportion="0.5726257">
+        <state line="427" column="58" selection-start="22596" selection-end="22596" vertical-scroll-proportion="0.33240223">
           <folding />
         </state>
       </provider>

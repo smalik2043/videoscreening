@@ -425,6 +425,7 @@ exports.saveAnswerVideo = function(req,res){
 
     //console.log("b : "+form.bytes);
     form.parse(req,function(err,fields,files){
+        console.log("interviewId: " + fields.interviewId);
         var interviewId = fields.interviewId;
         var questionId = fields.questionId;
         var userId = fields.userId;
