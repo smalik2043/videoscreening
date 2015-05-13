@@ -494,7 +494,7 @@ function convertVideoMovToMp4(videoPath,callback) {
         console.dir(metadata);
     });
 //Set the path to where FFmpeg is installed
-    proc.setFfmpegPath("/usr/bin/ffmpeg"); //I forgot to include "ffmpeg.exe"
+    proc.setFfmpegPath("/usr/bin/ffmpeg/ffmpeg"); //I forgot to include "ffmpeg.exe"
 
     proc
 //set the size
@@ -539,7 +539,7 @@ exports.convertVideo = function(req,res){
         //.withVideoBitrate('100000')
 
 // set output format to force
-        .toFormat('mp4')
+        .toFormat('mov')
 // setup event handlers
         .on('end', function() {
             console.log('file has been converted successfully');
@@ -548,7 +548,7 @@ exports.convertVideo = function(req,res){
             console.log('an error happened: ' + err.message);
         })
 // save to file <-- the new file I want -->
-        .saveToFile('E:/temp/6.mp4');
+        .saveToFile('E:/temp/6.mov');
 }
 
 function convertVideoMp4toMov(videoPath,callback){
@@ -564,7 +564,7 @@ function convertVideoMp4toMov(videoPath,callback){
         console.dir(metadata);
     });
 //Set the path to where FFmpeg is installed
-    proc.setFfmpegPath("/usr/bin/ffmpeg"); //I forgot to include "ffmpeg.exe"
+    proc.setFfmpegPath("/usr/bin/ffmpeg/ffmpeg"); //I forgot to include "ffmpeg.exe"
 
     proc
 //set the size
