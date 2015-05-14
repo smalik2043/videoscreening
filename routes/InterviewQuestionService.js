@@ -495,7 +495,7 @@ function convertVideoMovToMp4(videoPath,callback) {
         console.dir(metadata);
     });
 //Set the path to where FFmpeg is installed
-    proc.setFfmpegPath("/usr/bin/ffmpeg"); //I forgot to include "ffmpeg.exe"
+    proc.setFfmpegPath("/home/ffmpeg/ffmpeg-git-20150514-64bit-static/ffmpeg"); //I forgot to include "ffmpeg.exe"
 
     proc
 //set the size
