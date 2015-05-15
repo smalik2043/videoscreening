@@ -615,7 +615,7 @@ exports.receiveStoredAnswerVideo = function(req,res){
                 convertVideoMp4toMov(videoPath,function(newVideoPath){
                     console.log("In new video path: " + newVideoPath);
                     //res.send(fs.readFileSync(newVideoPath));
-                    var img = new Buffer(fs.readFile(newVideoPath), 'binary').toString('base64');
+                    var img = new Buffer(fs.readFileSync(newVideoPath), 'binary').toString('base64');
 //                    fs.writeFile('E:/temp/a.mov',img,'base64',function(err){
 //                        console.log(err);
 //                        console.log("send file to disk");
