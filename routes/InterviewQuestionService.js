@@ -608,14 +608,14 @@ exports.receiveStoredAnswerVideo = function(req,res){
             console.log(file);
             fileName = file.filename;
             console.log("filename: " + fileName);
-            var videoPath = '/home/videos'+fileName+'.mp4';
+            var videoPath = '/home/videos/'+fileName+'.mp4';
             var fs_write_stream = fs.createWriteStream(videoPath);
             var outputStream = readStream.pipe(fs_write_stream);
             fs_write_stream.on('close', function (file) {
                 convertVideoMp4toMov(videoPath,function(newVideoPath){
                     console.log("In new video path: " + newVideoPath);
                     //res.send(fs.readFileSync(newVideoPath));
-                    var img = new Buffer(fs.readFileSync(newVideoPath), 'binary').toString('base64');
+                    var img = new Buffer(fs.readFile(newVideoPath), 'binary').toString('base64');
 //                    fs.writeFile('E:/temp/a.mov',img,'base64',function(err){
 //                        console.log(err);
 //                        console.log("send file to disk");
