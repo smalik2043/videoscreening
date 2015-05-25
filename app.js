@@ -74,7 +74,6 @@ app.post('/fileUpload',interviewQuestionService.fileUpload);
 app.post('/watchInterview',interviewQuestionService.receiveStoredAnswerVideo);
 app.post('/interviewsCreatedByManager',interviewQuestionService.interviewsCreatedByManager);
 app.post('/convertVideo',interviewQuestionService.convertVideo);
-app.post('/testStream',interviewQuestionService.testStream);
 app.get('/getCompanyName/:companyId',companyClass.getCompanyNameApi);
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
