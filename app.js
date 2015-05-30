@@ -50,6 +50,7 @@ app.post('/addUser' , loginService.addUser);
 app.post('/adminLogin' , loginService.adminLogin);
 app.post('/managerLogin' , loginService.managerLogin);
 app.post('/userLogin' , loginService.userLogin);
+app.put('/editAdmin',loginService.editAdmin);
 app.put('/editManager',loginService.editManager);
 app.put('/editUser',loginService.editUser);
 app.put('/deleteManager',loginService.deleteManager);
