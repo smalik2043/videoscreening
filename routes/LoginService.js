@@ -48,6 +48,10 @@ exports.userLogin = function(req,res) {
     loginClass.loginMethod();
 }
 
+exports.editAdmin = function(req,res){
+    var editManagerUser = new EditManagerUser(req,res);
+    editManagerUser.editManagerUserFunc();
+}
 exports.editManager = function(req,res){
     var editManagerUser = new EditManagerUser(req,res);
     editManagerUser.editManagerUserFunc();
@@ -265,6 +269,7 @@ EditManagerUser.prototype.editManagerUserFunc = (function(editManagerCallback){
 
 function editManagerCallbackFunction(req,res){
     res.set('Content-Type', 'application/json');
+    var userId = req.param('userId');
     var firstName = req.param('firstName');
     var lastName = req.param('lastName');
     var userName = req.param('userName');
@@ -273,25 +278,31 @@ function editManagerCallbackFunction(req,res){
     var confirmPassword = req.param('confirmPassword');
     var encryptPassword = new EncryptDecryptPasswordClass(req.param("password"));
     var hashPassword = encryptPassword.encryptPasswordFunction();
-    var role = req.param('role');
-    var status = req.param('status');
+    var role;
+    //var status = req.param('status');
     var phoneNumber = req.param('phoneNumber');
 
     if(password != confirmPassword){
         res.status(400);
         res.json({result: "password and confirm password does not match"});
     } else {
-        mongooseDBObjects.var_video_screening_createLogin.find({userName : userName},function(err,findUser,count){
+        mongooseDBObjects.var_video_screening_createLogin.find({_id : userId},function(err,findUser,count){
             if(findUser != ""){
                 findUser.forEach(function(findUserLoop){
-                    mongooseDBObjects.var_video_screening_createLogin.update({userName : userName},{$set:{
-                        firstName:firstName,lastName:lastName,password:hashPassword,role:parseInt(role),status:status,
-                        phoneNumber:phoneNumber,email:email
+                    role = findUserLoop.role;
+                    mongooseDBObjects.var_video_screening_createLogin.update({_id : userId},{$set:{
+                        firstName:firstName,lastName:lastName,password:hashPassword,phoneNumber:phoneNumber,email:email
                     }},function(err,findUserLoopUpdate,count){
                         if(err) return console.error(err);
-                        if(role == "2") {
+                        if(role == 1) {
+                            res.status(200);
+                            res.json({result:"Admin is updated"});
+                        }
+                        if(role == 2) {
+                            res.status(200);
                             res.json({result:"Manager is updated"});
-                        } else if(role == "3") {
+                        } else if(role == 3) {
+                            res.status(200);
                             res.json({result:"User is updated"});
                         }
                     })
