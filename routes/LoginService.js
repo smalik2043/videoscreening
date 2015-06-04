@@ -276,11 +276,26 @@ function editManagerCallbackFunction(req,res){
     var email = req.param('email');
     var password = req.param('password');
     var confirmPassword = req.param('confirmPassword');
-    var encryptPassword = new EncryptDecryptPasswordClass(req.param("password"));
-    var hashPassword = encryptPassword.encryptPasswordFunction();
-    var role;
-    //var status = req.param('status');
+    var encryptPassword;
+    var hashPassword;
     var phoneNumber = req.param('phoneNumber');
+    var role;
+    var jsonObj = {};
+    if(firstName != null && firstName != "" && typeof(firstName) != "undefined") {
+        jsonObj["firstName"] = firstName;
+    } if(lastName != null && lastName != "" && typeof(lastName) != "undefined") {
+        jsonObj["lastName"] = lastName;
+    } if(password != null && password != "" && typeof(password) != "undefined") {
+        encryptPassword = new EncryptDecryptPasswordClass(req.param("password"));
+        hashPassword = encryptPassword.encryptPasswordFunction();
+        jsonObj["password"] = hashPassword;
+    } if(phoneNumber != null && phoneNumber != "" && typeof(phoneNumber) != "undefined") {
+        jsonObj["phoneNumber"] = phoneNumber;
+    } if(email != null && email != "" && typeof(email) != "undefined") {
+        jsonObj["email"] = email;
+    }
+    //var status = req.param('status');
+
 
     if(password != confirmPassword){
         res.status(400);
@@ -290,9 +305,7 @@ function editManagerCallbackFunction(req,res){
             if(findUser != ""){
                 findUser.forEach(function(findUserLoop){
                     role = findUserLoop.role;
-                    mongooseDBObjects.var_video_screening_createLogin.update({_id : userId},{$set:{
-                        firstName:firstName,lastName:lastName,password:hashPassword,phoneNumber:phoneNumber,email:email
-                    }},function(err,findUserLoopUpdate,count){
+                    mongooseDBObjects.var_video_screening_createLogin.update({_id : userId},{$set:jsonObj},function(err,findUserLoopUpdate,count){
                         if(err) return console.error(err);
                         if(role == 1) {
                             res.status(200);
