@@ -10,6 +10,7 @@ var multiparty = require('multiparty');
 var mongooseDBObjects = require('./MongooseDBObjects.js');
 var saveVideoConnection = require('./db.js');
 var mongoose = require('../node_modules/mongoose');
+var server = require('../app.js');
 //var Db = require('../node_modules/mongodb').Db,
 //    MongoClient = require('../node_modules/mongodb').MongoClient,
 //    Server = require('../node_modules/mongodb').Server,
@@ -445,6 +446,7 @@ exports.saveAnswerVideo = function(req,res){
                 var writeStream = gfs.createWriteStream({mode:'w',content_type: "video/mp4", filename: video.originalFilename});
                 var response = fs.createReadStream(newVideoPath).pipe(writeStream);
                 var fileId = response._store.fileId;
+                console.log("fileId: " + fileId);
                 writeStream.on('close', function (file) {
                     // do something with `file`
                     console.log(file.filename + 'Written To DB');
@@ -600,38 +602,150 @@ exports.receiveStoredAnswerVideo = function(req,res){
     //var io = require('socket.io')(3001);
     Grid.mongo = mongoose.mongo;
     //db.open(function(err){
-        var gfs = Grid(conn.db);
-        var readStream = gfs.createReadStream({
-           _id : fileId
-        });
-        gfs.findOne({ _id: fileId}, function (err, file) {
-            console.log(file);
-            fileName = file.filename;
-            console.log("filename: " + fileName);
-            var videoPath = '/home/videos/'+fileName+'.mp4';
-            var fs_write_stream = fs.createWriteStream(videoPath);
-            var outputStream = readStream.pipe(fs_write_stream);
-            fs_write_stream.on('close', function (file) {
-                convertVideoMp4toMov(videoPath,function(newVideoPath){
-                    console.log("In new video path: " + newVideoPath);
-                    //res.send(fs.readFileSync(newVideoPath));
-                    var img = new Buffer(fs.readFileSync(newVideoPath), 'binary').toString('base64');
+    var gfs = Grid(conn.db);
+    var readStream = gfs.createReadStream({
+        _id : fileId
+    });
+    gfs.findOne({ _id: fileId}, function (err, file) {
+        console.log(file);
+        fileName = file.filename;
+        console.log("filename: " + fileName);
+        var videoPath = '/home/videos/'+fileName+'.mp4';
+        var fs_write_stream = fs.createWriteStream(videoPath);
+        var outputStream = readStream.pipe(fs_write_stream);
+        fs_write_stream.on('close', function (file) {
+            convertVideoMp4toMov(videoPath,function(newVideoPath){
+                console.log("In new video path: " + newVideoPath);
+                //res.send(fs.readFileSync(newVideoPath));
+                var img = new Buffer(fs.readFileSync(newVideoPath), 'binary').toString('base64');
 //                    fs.writeFile('E:/temp/a.mov',img,'base64',function(err){
 //                        console.log(err);
 //                        console.log("send file to disk");
 //                    })
 
-                    //res.send(img);
-                    fs.unlink(newVideoPath, function (err) {
-                        if (err) throw err;
-                        res.send(img);
-                        console.log("send");
-                        console.log('successfully deleted the mov temp file');
-                    });
+                //res.send(img);
+                fs.unlink(newVideoPath, function (err) {
+                    if (err) throw err;
+                    res.send(img);
+                    console.log("send");
+                    console.log('successfully deleted the mov temp file');
                 });
-                console.log('file has been written fully!');
             });
+            console.log('file has been written fully!');
         });
+    });
 
     //});
+}
+
+exports.testStream = function(req,res){
+    /*fs.readFile('E:/temp/data.txt', function (err, data) {
+        res.send(data);
+    });*/
+    var io = require('socket.io').listen(server.appServer);
+    io.on('connection',function(socket){
+        console.log("in socket");
+        fs.readFile('E:/temp/testimg.png',function(err,buf){
+            socket.emit('image',{image: true,buffer: buf});
+            console.log("test image");
+        });
+    })
+    //var stream = fs.createReadStream('E:/temp/data.txt');
+    //stream.pipe(res);
+}
+
+exports.usersAnswers = function(req,res) {
+    res.set('Content-Type', 'application/json');
+    var userId = req.param('userId');
+    var jsonArray = [];
+    var jsonObject = {};
+    var jsonInterviewArray = [];
+    var jsonInterviewObject = {};
+    var jsonInterviewForArray = [];
+    var interviewId;
+    var questionId;
+    var jsonAnswerArray = [];
+    var jsonInterviewIdArray = [];
+    var jsonQuestionArray = [];
+    var jsonQuestionIdArray = [];
+    var fileId;
+    var docLength;
+    var managerId;
+    var userId;
+    var userName;
+    var managerName;
+    mongooseDBObjects.var_video_screening_candidates_answers.find({userId:userId},function(err,answers,count){
+        if(answers!=null && answers!=""){
+            answers.forEach(function(answersLoop, index){
+                jsonAnswerArray.push(answersLoop);
+                jsonInterviewIdArray.push(answersLoop.interviewId);
+                jsonQuestionIdArray.push(answersLoop.questionId);
+            });
+            mongooseDBObjects.var_video_screening_createLogin.findOne({_id:userId},function(err,createLogin,count){
+                if(createLogin!=null){
+                    userId = createLogin._id;
+                    userName = createLogin.firstName + " " + createLogin.lastName;
+                    managerId = createLogin.createdBy;
+                }
+                mongooseDBObjects.var_video_screening_createLogin.findOne({_id:managerId},function(err,createLoginManager,count){
+                    if(createLoginManager!=null){
+                        managerId = createLoginManager._id;
+                        managerName = createLoginManager.firstName + " " + createLoginManager.lastName;
+                    }
+
+                });
+                mongooseDBObjects.var_video_screening_interview.find({_id:{$in:jsonInterviewIdArray}},function(err,interview,count){
+                    if(interview != "" && interview != null){
+                        interview.forEach(function(interviewLoop){
+                            jsonInterviewArray.push(interviewLoop);
+                            jsonInterviewObject = {};
+                        });
+                        for(var i= 0,forJsonAnswerArray = jsonAnswerArray.length;i<forJsonAnswerArray;i++) {
+                            for(var j= 0,forJsonInterviewArray = jsonInterviewArray.length;j<forJsonInterviewArray;j++) {
+                                if(jsonAnswerArray[i].interviewId == jsonInterviewArray[j]._id){
+                                    jsonInterviewObject["interviewId"] = jsonAnswerArray[i].interviewId;
+                                    jsonInterviewObject["interviewName"] = jsonInterviewArray[i].interviewName;
+                                    jsonInterviewObject["fileId"] = jsonAnswerArray[i].videoAnswerId;
+                                    jsonInterviewObject["date"] = jsonAnswerArray[i].lastUpdatedTimeStamp;
+                                    jsonInterviewForArray.push(jsonInterviewObject);
+                                    jsonInterviewObject = {};
+                                }
+                            }
+                        }
+                    }
+                    mongooseDBObjects.var_video_screening_question.find({_id:{$in:jsonQuestionIdArray}},{_id:1,question:1,interviewId:1},function(err,question,count){
+                        if(question != "" && question != null){
+                            question.forEach(function(questionLoop){
+                                jsonQuestionArray.push(questionLoop);
+                            })
+                        }
+                        for(var i= 0,forJsonQuestionArray = jsonQuestionArray.length;i<forJsonQuestionArray;i++){
+                            for(var j= 0,forJsonInterviewArray = jsonInterviewForArray.length;j<forJsonInterviewArray;j++){
+                                if(jsonQuestionArray[i].interviewId == jsonInterviewForArray[j].interviewId){
+                                    jsonObject["interviewId"] = jsonInterviewForArray[j].interviewId;
+                                    jsonObject["interviewName"] = jsonInterviewForArray[j].interviewName;
+                                    jsonObject["fileId"] = jsonInterviewForArray[j].fileId;
+                                    jsonObject["questionId"] = jsonQuestionArray[i]._id;
+                                    jsonObject["question"] = jsonQuestionArray[i].question;
+                                    jsonObject["userId"] = userId;
+                                    jsonObject["userName"] = userName;
+                                    jsonObject["managerId"] = managerId;
+                                    jsonObject["managerName"] = managerName;
+                                    jsonObject["date"] = jsonInterviewForArray[j].date;
+                                    jsonArray.push(jsonObject);
+                                    jsonObject = {};
+                                }
+                            }
+                        }
+                        res.status(200);
+                        res.json(jsonArray);
+                    });
+                });
+            });
+        }
+        else {
+            res.status(200);
+            res.json({result:"No interview recorded for a user"});
+        }
+    });
 }
