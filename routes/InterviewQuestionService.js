@@ -638,6 +638,7 @@ exports.receiveStoredAnswerVideo = function(req,res){
     //});
 }
 
+
 exports.testStream = function(req,res){
     /*fs.readFile('E:/temp/data.txt', function (err, data) {
         res.send(data);
@@ -698,13 +699,12 @@ exports.usersAnswers = function(req,res) {
                     if(interview != "" && interview != null){
                         interview.forEach(function(interviewLoop){
                             jsonInterviewArray.push(interviewLoop);
-                            jsonInterviewObject = {};
                         });
                         for(var i= 0,forJsonAnswerArray = jsonAnswerArray.length;i<forJsonAnswerArray;i++) {
                             for(var j= 0,forJsonInterviewArray = jsonInterviewArray.length;j<forJsonInterviewArray;j++) {
                                 if(jsonAnswerArray[i].interviewId == jsonInterviewArray[j]._id){
                                     jsonInterviewObject["interviewId"] = jsonAnswerArray[i].interviewId;
-                                    jsonInterviewObject["interviewName"] = jsonInterviewArray[i].interviewName;
+                                    jsonInterviewObject["interviewName"] = jsonInterviewArray[j].interviewName;
                                     jsonInterviewObject["fileId"] = jsonAnswerArray[i].videoAnswerId;
                                     jsonInterviewObject["date"] = jsonAnswerArray[i].lastUpdatedTimeStamp;
                                     jsonInterviewForArray.push(jsonInterviewObject);
@@ -719,19 +719,35 @@ exports.usersAnswers = function(req,res) {
                                 jsonQuestionArray.push(questionLoop);
                             })
                         }
+                        var result = [];
+                        console.log(jsonInterviewForArray)
+
+                        for (var i = 0; i < jsonInterviewForArray.length; i++) {
+                            var found = false;
+                            for (var j = 0; j < result.length; j++) {
+                                if (result[j].interviewId == jsonInterviewForArray[i].interviewId) {
+                                    found = true;
+                                    break;
+                                }
+                            }
+                            if (!found) {
+                                result.push(jsonInterviewForArray[i]);
+                            }
+                        }
+                        console.log(result);
                         for(var i= 0,forJsonQuestionArray = jsonQuestionArray.length;i<forJsonQuestionArray;i++){
-                            for(var j= 0,forJsonInterviewArray = jsonInterviewForArray.length;j<forJsonInterviewArray;j++){
-                                if(jsonQuestionArray[i].interviewId == jsonInterviewForArray[j].interviewId){
-                                    jsonObject["interviewId"] = jsonInterviewForArray[j].interviewId;
-                                    jsonObject["interviewName"] = jsonInterviewForArray[j].interviewName;
-                                    jsonObject["fileId"] = jsonInterviewForArray[j].fileId;
+                            for(var j= 0,forCArray = result.length;j<forCArray;j++){
+                                if(jsonQuestionArray[i].interviewId == result[j].interviewId){
+                                    jsonObject["interviewId"] = result[j].interviewId;
+                                    jsonObject["interviewName"] = result[j].interviewName;
+                                    jsonObject["fileId"] = result[j].fileId;
                                     jsonObject["questionId"] = jsonQuestionArray[i]._id;
                                     jsonObject["question"] = jsonQuestionArray[i].question;
                                     jsonObject["userId"] = userId;
                                     jsonObject["userName"] = userName;
                                     jsonObject["managerId"] = managerId;
                                     jsonObject["managerName"] = managerName;
-                                    jsonObject["date"] = jsonInterviewForArray[j].date;
+                                    jsonObject["date"] = result[j].date;
                                     jsonArray.push(jsonObject);
                                     jsonObject = {};
                                 }
