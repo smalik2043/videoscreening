@@ -669,6 +669,8 @@ exports.usersAnswers = function(req,res) {
     var jsonInterviewIdArray = [];
     var jsonQuestionArray = [];
     var jsonQuestionIdArray = [];
+    var jsonFileIdObject = {};
+    var jsonFileIdArray = [];
     var fileId;
     var docLength;
     var managerId;
@@ -736,11 +738,20 @@ exports.usersAnswers = function(req,res) {
                         }
                         console.log(result);
                         for(var i= 0,forJsonQuestionArray = jsonQuestionArray.length;i<forJsonQuestionArray;i++){
+                            for(var j= 0,forJsonAnswerArray = jsonAnswerArray.length;j<forJsonAnswerArray;j++) {
+                                if(jsonAnswerArray[j].questionId == jsonQuestionArray[i]._id){
+                                    jsonQuestionArray[i].fileId = jsonAnswerArray[j].videoAnswerId;
+                                }
+                            }
+                        }
+                        for(var i= 0,forJsonQuestionArray = jsonQuestionArray.length;i<forJsonQuestionArray;i++){
                             for(var j= 0,forCArray = result.length;j<forCArray;j++){
                                 if(jsonQuestionArray[i].interviewId == result[j].interviewId){
                                     jsonObject["interviewId"] = result[j].interviewId;
                                     jsonObject["interviewName"] = result[j].interviewName;
-                                    jsonObject["fileId"] = result[j].fileId;
+                                    //if(jsonQuestionArray[i]._id == jsonAnswerArray[i].questionId){
+                                        jsonObject["fileId"] = jsonQuestionArray[i].fileId;
+                                    //}
                                     jsonObject["questionId"] = jsonQuestionArray[i]._id;
                                     jsonObject["question"] = jsonQuestionArray[i].question;
                                     jsonObject["userId"] = userId;
