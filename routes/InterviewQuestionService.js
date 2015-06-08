@@ -600,6 +600,7 @@ exports.receiveStoredAnswerVideo = function(req,res){
     var output = '';
     var fileName;
     //var io = require('socket.io')(3001);
+    console.log("fileId: " + fileId);
     Grid.mongo = mongoose.mongo;
     //db.open(function(err){
     var gfs = Grid(conn.db);
@@ -617,18 +618,27 @@ exports.receiveStoredAnswerVideo = function(req,res){
             convertVideoMp4toMov(videoPath,function(newVideoPath){
                 console.log("In new video path: " + newVideoPath);
                 //res.send(fs.readFileSync(newVideoPath));
-                var img = new Buffer(fs.readFileSync(newVideoPath), 'binary').toString('base64');
+                //var img = new Buffer(fs.readFile(newVideoPath), 'binary').toString('base64');
+                var videoStream = fs.createReadStream(newVideoPath);
+                res.writeHead(200, {
+                    'Content-Type': 'video/quicktime'
+                });
 //                    fs.writeFile('E:/temp/a.mov',img,'base64',function(err){
 //                        console.log(err);
 //                        console.log("send file to disk");
 //                    })
 
                 //res.send(img);
-                fs.unlink(newVideoPath, function (err) {
-                    if (err) throw err;
-                    res.send(img);
+
+                videoStream.pipe(res);
+                videoStream.on('end', function() {
                     console.log("send");
-                    console.log('successfully deleted the mov temp file');
+                    console.log('there will be no more data.');
+                    fs.unlink(newVideoPath, function (err) {
+                        if (err) throw err;
+                        //res.send(img);
+                        console.log('successfully deleted the mov temp file');
+                    });
                 });
             });
             console.log('file has been written fully!');
@@ -637,7 +647,6 @@ exports.receiveStoredAnswerVideo = function(req,res){
 
     //});
 }
-
 
 exports.testStream = function(req,res){
     /*fs.readFile('E:/temp/data.txt', function (err, data) {
