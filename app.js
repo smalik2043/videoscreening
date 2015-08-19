@@ -42,6 +42,8 @@ app.get('/signup',routes.signup);
 app.get('/adminDashboard',routes.adminDashboard);
 app.get('/viewManagers',routes.viewManagers);
 app.get('/uploadVideo',routes.uploadVideo);
+app.get('/forgotPasswordView',routes.forgotPasswordView);
+app.get('/resetPasswordView',routes.resetPasswordView);
 
 //Create Login//
 app.post('/createAdmin' , loginService.createLogin);
@@ -77,6 +79,8 @@ app.post('/interviewsCreatedByManager',interviewQuestionService.interviewsCreate
 app.post('/convertVideo',interviewQuestionService.convertVideo);
 app.get('/getCompanyName/:companyId',companyClass.getCompanyNameApi);
 app.post('/getUserAnswers',interviewQuestionService.usersAnswers);
+app.post('/forgotPassword',resetPasswordClass.forgotUserPassword);
+app.post('/resetUserPassword', resetPasswordClass.resetUserPassword);
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
 });
