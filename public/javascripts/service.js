@@ -7,7 +7,16 @@
  */
 
 var videoScreeningApp = angular.module('videoScreeningApp',['ngRoute']);
+function ExtractParamsFromURL(){
+    this.url = document.URL;
+}
+ExtractParamsFromURL.prototype.extractParamsByName = function(key) {
+    key = key.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
 
+    var regex = new RegExp("[\\?&]"+key+"=([^&#]*)");
+    var qs = regex.exec(this.url);
+    return qs == null ? "" : qs[1];
+}
 videoScreeningApp.config(['$routeProvider','$locationProvider',
     function($routeProvider,$locationProvider) {
         $routeProvider.
@@ -25,6 +34,8 @@ videoScreeningApp.controller('mainController',function($scope,$http,$window){
     $scope.signUpFormData = {};
     $scope.addManagerFormData = {};
     $scope.companyProfileFormData = {};
+    $scope.forgotPasswordData = {};
+    $scope.resetPasswordData = {};
     $scope.ipaddress = config.ipaddress;
 
     $scope.login = function() {
@@ -44,6 +55,34 @@ videoScreeningApp.controller('mainController',function($scope,$http,$window){
         $http.post($scope.ipaddress+'/createAdmin', $scope.signUpFormData)
             .success(function(data) {
                 $scope.signUpFormData = {}; // clear the form so our user is ready to enter another
+                $window.location.href = $scope.ipaddress;
+            })
+            .error(function(data) {
+                console.log('Error: ' + data);
+                alert(data.result);
+            });
+    };
+
+    $scope.emailForgotPassword = function() {
+        $http.post($scope.ipaddress+'/forgotPassword', $scope.forgotPasswordData)
+            .success(function(data) {
+                $scope.forgotPasswordData = {}; // clear the form so our user is ready to enter another
+                $window.alert("A reset password link has been sent to your email account.");
+                $window.location.href = $scope.ipaddress;
+            })
+            .error(function(data) {
+                console.log('Error: ' + data);
+                alert(data.result);
+            });
+    };
+
+    $scope.resetPassword = function() {
+        var extractParamsFromURL = new ExtractParamsFromURL();
+        var uuid = extractParamsFromURL.extractParamsByName('uuid');
+        $scope.resetPasswordData.uuid = uuid;
+        $http.post($scope.ipaddress+'/resetUserPassword', $scope.resetPasswordData)
+            .success(function(data) {
+                $scope.resetPasswordData = {}; // clear the form so our user is ready to enter another
                 $window.location.href = $scope.ipaddress;
             })
             .error(function(data) {

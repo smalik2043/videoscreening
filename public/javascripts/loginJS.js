@@ -12,6 +12,9 @@ $(document).ready(function(){
         document.location.href = ipaddress+'/signup';
     });
 
+    $("#forgotPasswordBtn").click(function(){
+        document.location.href = ipaddress+'/forgotPasswordView';
+    });
     /*$("#loginForm").submit(function() {
         var url = ipaddress+'/webViewLogin';
 
