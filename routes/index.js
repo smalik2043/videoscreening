@@ -22,3 +22,11 @@ exports.viewManagers = function(req,res){
 exports.uploadVideo = function(req,res){
     res.render('uploadVideo', {title: 'VideoScreening - Upload Video'});
 };
+
+exports.forgotPasswordView = function(req,res){
+    res.render('forgotPassword', {title: 'VideoScreening - Forgot Password'});
+};
+
+exports.resetPasswordView = function(req,res){
+    res.render('resetPassword', {title: 'VideoScreening - Reset Password'});
+};
