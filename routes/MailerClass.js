@@ -28,7 +28,7 @@ MailerClass.prototype.mailOptionsFunc = function(emailAddress,userName,password,
 }
 MailerClass.prototype.smtpTransportConfiguration = function() {
     smtpTransport = nodeMailer.createTransport({
-        service: "Gmail",
+        service: "Mandrill",
         auth: {
             user: configuration.email,
             pass: configuration.password
@@ -73,7 +73,7 @@ ForgotMailerLinkClass.prototype.mailOptionsFunc = function(emailAddress,uuid){
 }
 ForgotMailerLinkClass.prototype.smtpTransportConfiguration = function() {
     smtpTransport = nodeMailer.createTransport({
-        service: "Gmail",
+        service: "Mandrill",
         auth: {
             user: configuration.email,
             pass: configuration.password
