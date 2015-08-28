@@ -52,7 +52,7 @@ function createGenericCallbackFunction(firstName, lastName, userName, email, pas
     var jsonArray = [];
     console.log("created by in callback: " + createdBy);
 
-    mongooseDBObjects.var_video_screening_createLogin.find({email : userName},function(err,user){
+    mongooseDBObjects.var_video_screening_createLogin.find({userName : userName},function(err,user){
         if(user != ""){
             user.forEach(function(userLoop){
                 userId = userLoop._id;
