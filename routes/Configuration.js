@@ -8,7 +8,7 @@
 
 //var dbAddress = 'mongodb://127.0.0.1:27017/videoScreeningDB';
 var dbAddress = 'mongodb://178.62.121.119:27017/videoScreeningDB';
-var URLAddress = 'http://localhost:3000/';
+var URLAddress = 'http://178.62.121.119:3000/';
 var email = "sulaiman.malik@gmail.com";
 var password = "gzCYcdJYBMMJO7yH1oqslw";
 
