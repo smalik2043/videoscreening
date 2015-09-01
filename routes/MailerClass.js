@@ -62,7 +62,7 @@ ForgotMailerLinkClass.prototype.mailOptionsFunc = function(emailAddress,uuid){
     console.log("mailOptionsFunc " + emailAddress + "uuid " + uuid);
     var resetLink = this.URLAddress+"resetPasswordView?uuid="+uuid;
     mailOptions = {
-        from: "Admin <sulaiman.malik@gmail.com>", // sender address
+        from: "Admin "+configuration.email, // sender address
         to: emailAddress, // list of receivers
         subject: "Reset Your Video Screening Password", // Subject line
         text: "Dear User! Click on the following link to reset your password.", // plaintext body
