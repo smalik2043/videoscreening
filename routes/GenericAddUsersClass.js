@@ -8,6 +8,7 @@
 var mongooseDBObjects = require('./MongooseDBObjects.js');
 var varEnumClass = require('./EnumClass.js');
 var EncryptDecryptPasswordClass = require('./EncryptDecryptPassword');
+var mailerLinkClass = require('./MailerClass');
 var GenericAddUserClass = function(firstName, lastName, userName, email, password, role, phoneNumber, company, createdBy, req, res){
     this.firstName = firstName;
     this.lastName = lastName;
@@ -85,6 +86,7 @@ function createGenericCallbackFunction(firstName, lastName, userName, email, pas
                                         if (err) throw err;
                                         res.status(200);
                                         if(role == varEnumClass.role["Admin"]) {
+                                            sendEmailToUser(email,userName,password,"admin");
                                             res.json({result:"admin created",
                                                 "firstName":firstName,
                                                 "lastName":lastName,
@@ -94,6 +96,7 @@ function createGenericCallbackFunction(firstName, lastName, userName, email, pas
                                                 "companyId":company,
                                                 "companyName":getCompanyName});
                                         } else if(role == varEnumClass.role["Manager"]) {
+                                            sendEmailToUser(email,userName,password,"manager");
                                             res.json({result:"manager created",
                                                 "firstName":firstName,
                                                 "lastName":lastName,
@@ -103,6 +106,8 @@ function createGenericCallbackFunction(firstName, lastName, userName, email, pas
                                                 "companyId":company,
                                                 "companyName":getCompanyName});
                                         } else if(role == varEnumClass.role["User"]) {
+                                            sendEmailToUser(email,userName,password,"user");
+                                            console.log("firstName1: " + firstName);
                                             res.json({result:"user created",
                                                 "firstName":firstName,
                                                 "lastName":lastName,
@@ -133,6 +138,7 @@ function createGenericCallbackFunction(firstName, lastName, userName, email, pas
                                                 res.status(200);
                                                 res.json({result:"company admin saved"});
                                                 if(role == varEnumClass.role["Admin"]) {
+                                                    sendEmailToUser(email,userName,password,"admin");
                                                     res.json({result:"admin created",
                                                         "firstName":firstName,
                                                         "lastName":lastName,
@@ -142,6 +148,7 @@ function createGenericCallbackFunction(firstName, lastName, userName, email, pas
                                                         "companyId":company,
                                                         "companyName":getCompanyName});
                                                 } else if(role == varEnumClass.role["Manager"]) {
+                                                    sendEmailToUser(email,userName,password,"manager");
                                                     res.json({result:"manager created",
                                                         "firstName":firstName,
                                                         "lastName":lastName,
@@ -151,6 +158,8 @@ function createGenericCallbackFunction(firstName, lastName, userName, email, pas
                                                         "companyId":company,
                                                         "companyName":getCompanyName});
                                                 } else if(role == varEnumClass.role["User"]) {
+                                                    sendEmailToUser(email,userName,password,"user");
+                                                    console.log("firstName2: " + firstName);
                                                     res.json({result:"user created",
                                                         "firstName":firstName,
                                                         "lastName":lastName,
@@ -187,6 +196,7 @@ function createGenericCallbackFunction(firstName, lastName, userName, email, pas
                                         if (err) throw err;
                                         res.status(200);
                                         if(role == varEnumClass.role["Admin"]) {
+                                            sendEmailToUser(email,userName,password,"admin");
                                             res.json({result:"admin created",
                                                 "firstName":firstName,
                                                 "lastName":lastName,
@@ -196,6 +206,7 @@ function createGenericCallbackFunction(firstName, lastName, userName, email, pas
                                                 "companyId":companyId,
                                                 "companyName":company});
                                         } else if(role == varEnumClass.role["Manager"]) {
+                                            sendEmailToUser(email,userName,password,"manager");
                                             res.json({result:"manager created",
                                                 "firstName":firstName,
                                                 "lastName":lastName,
@@ -205,6 +216,8 @@ function createGenericCallbackFunction(firstName, lastName, userName, email, pas
                                                 "companyId":companyId,
                                                 "companyName":company});
                                         } else if(role == varEnumClass.role["User"]) {
+                                            sendEmailToUser(email,userName,password,"user");
+                                            console.log("firstName3: " + firstName);
                                             res.json({result:"user created",
                                                 "firstName":firstName,
                                                 "lastName":lastName,
@@ -264,6 +277,7 @@ function createGenericCallbackFunction(firstName, lastName, userName, email, pas
                                     if(err) throw err;
                                     res.status(200);
                                     if(role == varEnumClass.role["Admin"]) {
+                                        sendEmailToUser(email,userName,password,"admin");
                                         res.json({result:"admin created",
                                             "firstName":firstName,
                                             "lastName":lastName,
@@ -273,6 +287,7 @@ function createGenericCallbackFunction(firstName, lastName, userName, email, pas
                                             "companyId":company,
                                             "companyName":getCompanyName});
                                     } else if(role == varEnumClass.role["Manager"]) {
+                                        sendEmailToUser(email,userName,password,"manager");
                                         res.json({result:"manager created",
                                             "firstName":firstName,
                                             "lastName":lastName,
@@ -282,6 +297,8 @@ function createGenericCallbackFunction(firstName, lastName, userName, email, pas
                                             "companyId":company,
                                             "companyName":getCompanyName});
                                     } else if(role == varEnumClass.role["User"]) {
+                                        sendEmailToUser(email,userName,password,"user");
+                                        console.log("firstName4: " + firstName);
                                         res.json({result:"user created",
                                             "firstName":firstName,
                                             "lastName":lastName,
@@ -312,6 +329,12 @@ function createGenericCallbackFunction(firstName, lastName, userName, email, pas
                                             if (err) throw err;
                                             res.status(200);
                                             if(role == varEnumClass.role["Admin"]) {
+                                                console.log("Sending email.....");
+                                                /*var encryptPassword = new EncryptDecryptPasswordClass(password);
+                                                var originalPassword = encryptPassword.decryptPasswordFunction();
+                                                var sendUserEmail = new mailerLinkClass.MailerClass();
+                                                sendUserEmail.sendMail(email,userName,originalPassword,"");*/
+                                                sendEmailToUser(email,userName,password,"admin");
                                                 res.json({result:"admin created",
                                                             "firstName":firstName,
                                                             "lastName":lastName,
@@ -321,6 +344,7 @@ function createGenericCallbackFunction(firstName, lastName, userName, email, pas
                                                             "companyId":companyId,
                                                             "companyName":company});
                                             } else if(role == varEnumClass.role["Manager"]) {
+                                                sendEmailToUser(email,userName,password,"manager");
                                                 res.json({result:"manager created",
                                                             "firstName":firstName,
                                                             "lastName":lastName,
@@ -330,6 +354,8 @@ function createGenericCallbackFunction(firstName, lastName, userName, email, pas
                                                             "companyId":companyId,
                                                             "companyName":company});
                                             } else if(role == varEnumClass.role["User"]) {
+                                                sendEmailToUser(email,userName,password,"user");
+                                                console.log("firstName5: " + firstName);
                                                 res.json({result:"user created",
                                                             "firstName":firstName,
                                                             "lastName":lastName,
@@ -351,6 +377,13 @@ function createGenericCallbackFunction(firstName, lastName, userName, email, pas
     });
 }
 
+function sendEmailToUser(email,userName,password,type){
+    console.log("Sending email.....");
+    var encryptPassword = new EncryptDecryptPasswordClass(password);
+    var originalPassword = encryptPassword.decryptPasswordFunction();
+    var sendUserEmail = new mailerLinkClass.MailerClass();
+    sendUserEmail.sendMail(email,userName,originalPassword,type);
+}
 //returning a company value from callback function
 GenericAddUserClass.prototype.getCompany = function (createdBy,callback){
     var userCompanyId;
