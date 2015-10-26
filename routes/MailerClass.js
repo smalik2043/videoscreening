@@ -16,12 +16,11 @@ function MailerClass() {
 MailerClass.prototype.mailOptionsFunc = function(emailAddress,userName,password,assignTo){
     console.log("mailOptionsFunc " + emailAddress);
         mailOptions = {
-            from: "Admin <sulaiman@technosurge.com>", // sender address
+            from: "Admin "+configuration.email, // sender address
             to: emailAddress, // list of receivers
-            subject: "Video Screening Web User Account.", // Subject line
-            text: "Dear User! Your Video Screening web user account has been created successfully.", // plaintext body
-            html: "<b>Dear User!</br> Your Video Screening web user account has been created successfully.Your username is " + userName + " Please click the link below " +
-                "<a href="+this.URLAddress+">Video Screening</a></b>" // html body
+            subject: "Video Screening Login Account.", // Subject line
+            text: "Dear User! Your Video Screening " + assignTo + " account has been created successfully.", // plaintext body
+            html: "<b>Dear User!</br> Your Video Screening " + assignTo + " account has been created successfully.Your username is " + userName + " and password is " + password // html body
         }
 
     return mailOptions;
@@ -98,5 +97,5 @@ ForgotMailerLinkClass.prototype.sendMail = function(emailAddress,uuid) {
     this.sendEmailSMTP(mailJson);
 
 }
-module.exports = MailerClass;
+module.exports.MailerClass = MailerClass;
 module.exports.ForgotMailerLinkClass = ForgotMailerLinkClass;
