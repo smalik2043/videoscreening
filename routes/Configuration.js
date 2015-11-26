@@ -7,7 +7,7 @@
  */
 
 //var dbAddress = 'mongodb://127.0.0.1:27017/videoScreeningDB';
-var dbAddress = 'mongodb://127.0.0.1:27017/videoScreeningDB';
+var dbAddress = 'mongodb://46.101.7.102:27017/videoScreeningDB';
 //var URLAddress = 'http://178.62.121.119:3000/';
 var URLAddress = 'http://localhost:3000/';
 var email = "noreply@videoscreening.com";
