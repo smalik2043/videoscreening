@@ -8,6 +8,6 @@
 
 var config = {
     //ipaddress: 'http://178.62.121.119:3000'
-    ipaddress: 'http://178.62.47.154:3000'
+    ipaddress: 'http://46.101.7.102:3000'
     //ipaddress: 'http://localhost:3000'
 }
