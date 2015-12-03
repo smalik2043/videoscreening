@@ -115,6 +115,17 @@ videoScreeningApp.controller('mainController',function($scope,$http,$window){
                 alert(data.result);
             });
     };
+
+    $scope.logout = function() {
+        $http.get($scope.ipaddress+'/logout')
+            .success(function(data) {
+                $window.location.href = $scope.ipaddress;
+            })
+            .error(function(data) {
+                console.log('Error: ' + data);
+                alert(data.result);
+            });
+    };
     /*    $http.get('/api/todos')
      .success(function(data) {
      $scope.todos = data;
