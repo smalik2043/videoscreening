@@ -11,6 +11,7 @@ var loginService = require('./routes/LoginService');
 var interviewQuestionService = require('./routes/InterviewQuestionService');
 var resetPasswordClass = require('./routes/ResetPasswordClass');
 var companyClass = require('./routes/CompanyClass');
+var logout = require('./routes/Logout');
 var http = require('http');
 var path = require('path');
 
@@ -44,7 +45,7 @@ app.get('/viewManagers',routes.viewManagers);
 app.get('/uploadVideo',routes.uploadVideo);
 app.get('/forgotPasswordView',routes.forgotPasswordView);
 app.get('/resetPasswordView',routes.resetPasswordView);
-
+app.get('/logout',logout.logout);
 //Create Login//
 app.post('/createAdmin' , loginService.createLogin);
 app.post('/addManager' , loginService.addManager);
